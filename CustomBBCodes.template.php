@@ -15,7 +15,7 @@ function template_CustomBBCode_Browse()
 
 	template_show_list('list_bbc');
 	echo '
-		<form action="', $scripturl, '?action=admin;area=postsettings;sa=custombbc;edit=-1;sesc=' , $context['session_id'] , '"" name="restore" method="post" accept-charset="', $context['character_set'], '">
+		<form action="', $scripturl, '?action=admin;area=', $_GET['area'], ';sa=custombbc;edit=-1;sesc=' , $context['session_id'] , '"" name="restore" method="post" accept-charset="', $context['character_set'], '">
 			<div align="right"><input type="submit" class="button_submit" name="submit" value="', $txt['List_add'], '" /></div>
 		</form>';
 }

@@ -35,7 +35,7 @@ function CustomBBCodes_Browse()
 	{
 		checkSession('get');
 		remove_bbc_tag((int) $_GET['delete']);
-		redirectexit('action=admin;area=postsettings;sa=custombbc');
+		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc');
 	}
 
 	// Enabling or disabling a tag?
@@ -45,7 +45,7 @@ function CustomBBCodes_Browse()
 		update_bbc_tag((int) $_GET['enable'], array(
 			'enabled' => 1,
 		));
-		redirectexit('action=admin;area=postsettings;sa=custombbc');
+		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc');
 	}
 	if (isset($_GET['disable']))
 	{
@@ -53,7 +53,7 @@ function CustomBBCodes_Browse()
 		update_bbc_tag((int) $_GET['disable'], array(
 			'enabled' => 0,
 		));
-		redirectexit('action=admin;area=postsettings;sa=custombbc');
+		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc');
 	}
 
 	// Build the array required for "createList" function:
@@ -61,7 +61,7 @@ function CustomBBCodes_Browse()
 		'id' => 'list_bbc',
 		'title' => $txt['CustomBBCode_List_Title'],
 		'items_per_page' => 30,
-		'base_href' => $scripturl . '?action=admin;area=postsettings;sa=custombbc',
+		'base_href' => $scripturl . '?action=admin;area=' . $_GET['area'] . ';sa=custombbc',
 		'default_sort_col' => 'tag',
 		'get_items' => array(
 			'function' => 'get_bbc_data',
@@ -146,7 +146,7 @@ function CustomBBCodes_Edit($tag)
 	isAllowedTo('admin_forum');
 	$context['sub_template'] = 'CustomBBCode_Edit';
 	$context['page_title'] = $txt['Edit_title'];
-	$context['post_url'] = $scripturl . '?action=admin;area=postsettings;sa=custombbc;edit=' . $tag . ';' . $context['session_var'] . '=' . $context['session_id'];
+	$context['post_url'] = $scripturl . '?action=admin;area=' . $_GET['area'] . ';sa=custombbc;edit=' . $tag . ';' . $context['session_var'] . '=' . $context['session_id'];
 
 	// If new tag, define the fields.  Otherwise, get the tag from the database:
 	if ($tag != -1)
@@ -183,7 +183,7 @@ function CustomBBCodes_Edit($tag)
 				'button' => 1,
 			));
 		}
-		redirectexit('action=admin;area=postsettings;sa=custombbc;tag=' . $row['id']);
+		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc;tag=' . $row['id']);
 	}
 
 	// Saving?
@@ -248,7 +248,7 @@ function CustomBBCodes_Edit($tag)
 
 		// Insert the information, then return to the CustomBBCodes listing page:
 		replace_tag($data);
-		redirectexit('action=admin;area=postsettings;sa=custombbc');
+		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc');
 	}
 
 	// Let's put the entire HTML replacement code back together so the user understands it better:

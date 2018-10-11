@@ -3,14 +3,22 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>dougiefresh:CustomBBCodes</id>
 <name>Custom BBCodes Manager</name>
-<version>1.5</version>
+<version>1.6</version>
 
 <!-------------------------------------------------------------------------->
-<!-- Better Modify Board UI (ManageBoards.php)                            -->
+<!-- Custom BBCode Manager UI (ManageBoards.php)                            -->
 <!-------------------------------------------------------------------------->
 <file name="$sourcedir/ManagePosts.php">
 	<operation>
 		<search position="before"><![CDATA[		'bbc' => 'ModifyBBCSettings',
+]]></search>
+		<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
+]]></add>
+	</operation>
+</file>
+<file name="$sourcedir/ManageSettings.php">
+	<operation>
+		<search position="before"><![CDATA[		'layout' => 'ModifyLayoutSettings',
 ]]></search>
 		<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
 ]]></add>

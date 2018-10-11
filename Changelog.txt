@@ -1,0 +1,30 @@
+v1.6 - Febuary 1st, 2015
+o Fixed a nasty bug where existing custom BBcodes weren't allowed to be edited.
+o If SMF 2.1-Style Admin Area is installed, this mod is installed under Configuration => Feature Settings.
+o Changed code so that CustomBBCode.php not loaded until actually needed....
+
+v1.5 - December 13th, 2014
+o License change to Simplified BSD.
+o Replaced the BBCode existance check using SMF's own code...
+o Added Dutch translation to the mod, courtesy of Fixit...
+
+v1.4 - September 30th, 2014
+o Fixed several bugs in code involving removing buttons from bbcodes....
+o Added code to preserve the bbcode description within the database.
+o Added code to remove bbcode button image from server upon deleting bbcode.
+
+v1.3 - September 29th, 2014
+o Fixed bug that made empty bbcode entries when attempting to disable/enable bbcodes...
+o Removed equal sign from bbcode in editor...
+
+v1.2 - September 29th, 2014
+o Added code so that "parsed content" tags are recognized properly by BBcode parser.
+o Fixed bug so that Custom BBCode UI properly displays HTML that the bbcode will use.
+
+v1.1 - September 29th, 2014
+o Fixed bugs that corrupted BBcode HTML codes upon modifying the BBcode.
+o Fixed typo relating to BBCode usage in the Custom BBCodes UI page.
+o Added English UTF8 language file.
+
+v1.0 - September 13th, 2014
+o Initial Release

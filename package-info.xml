@@ -4,7 +4,7 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>dougiefresh:CustomBBCodes</id>
 	<name>Custom BBCodes Manager</name>
-	<version>1.5</version>
+	<version>1.6</version>
 	<type>modification</type>
 	
 	<install for="2.0 - 2.0.99">
@@ -34,15 +34,4 @@
 		<remove-file name="$sourcedir/Subs-CustomBBCodesAdmin.php" />
 		<remove-file name="$boarddir/Themes/default/CustomBBCodes.template.php" />
 	</uninstall>
-	
-	<upgrade from="1.0 - 1.4">
-		<require-file name="CustomBBCodes.php" destination="$sourcedir" />
-		<require-file name="CustomBBCodes.english.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="CustomBBCodes.english-utf8.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="CustomBBCodes.dutch.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="CustomBBCodes.dutch-utf8.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="Subs-CustomBBCodes.php" destination="$sourcedir" />
-		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
-		<require-file name="CustomBBCodes.template.php" destination="$boarddir/Themes/default" />
-	</upgrade>		
 </package-info>

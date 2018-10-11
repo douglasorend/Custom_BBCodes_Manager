@@ -293,7 +293,9 @@ function bbcode_exists($tag, $id)
 	isAllowedTo('admin_forum');
 
 	// Is this bbcode is already defined by SMF itself or another mod?
+	remove_integration_function('integrate_bbc_codes', 'CustomBBCodes_BBCodes');
 	$temp = parse_bbc(false);
+	add_integration_function('integrate_bbc_codes', 'CustomBBCodes_BBCodes');
 	$bbcTags = array();
 	foreach ($temp as $tag)
 		$bbcTags[] = $tag['tag'];

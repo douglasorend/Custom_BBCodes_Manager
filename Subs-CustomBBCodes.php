@@ -16,8 +16,21 @@ function CustomBBCodes_Admin(&$admin_areas)
 {
 	global $txt, $sourcedir;
 
-	require_once($sourcedir . '/CustomBBCodes.php');
-	$admin_areas['layout']['areas']['postsettings']['subsections']['custombbc'] = array($txt['CustomBBCode_List_Title']);
+	if (!isset($admin_areas['config']['areas']['featuresettings']['subsections']['bbc']))
+		$admin_areas['layout']['areas']['postsettings']['subsections']['custombbc'] = array($txt['CustomBBCode_List_Title']);
+	else
+	{
+		$rebuild = array();
+		foreach ($admin_areas['config']['areas']['featuresettings']['subsections'] as $id => $area)
+		{
+			$rebuild[$id] = $area;
+			if ($id == 'bbc')
+				$rebuild['custombbc'] = array($txt['CustomBBCode_List_Title']);
+		}
+		$admin_areas['config']['areas']['featuresettings']['subsections'] = $rebuild;
+	}
+	if (($_GET['area'] == 'featuresettings' || $_GET['area'] == 'postsettings') && $_GET['sa'] == 'custombbc')
+		require_once($sourcedir . '/CustomBBCodes.php');
 }
 
 function CustomBBCodes_BBCodes(&$codes)

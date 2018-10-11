@@ -1,5 +1,5 @@
 [hr]
-[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.5[/b][/size][/color]
+[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.6[/b][/size][/color]
 [url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=3699]Link to Mod[/url]
 [/center]
 [hr]
@@ -8,7 +8,9 @@
 This modification adds the ability to create custom Bulletin Board Code (bbcode) for your forum.
 
 [color=blue][b][size=12pt][u]Admin Settings[/u][/size][/b][/color]
-Settings are available on the [b][i]Admin[/i] -> [i]Forum[/i] -> [i]Posts and Topics[/i] -> [i]Custom BBcode[/i][/b] page.
+The settings are found in:
+o [b][i]Admin[/i] -> [i]Forum[/i] -> [i]Posts and Topics[/i] -> [i]Custom BBcode[/i][/b] without [url=http://custom.simplemachines.org/mods/index.php?mod=3907]SMF 2.1-Style Admin Menu[/url] mod installed.
+o [b][i]Admin[/i] -> [i]Configuration[/i] -> [i]Features and Options[/i] -> [i]Custom BBcode[/i][/b] with [url=http://custom.simplemachines.org/mods/index.php?mod=3907]SMF 2.1-Style Admin Menu[/url] mod installed.
 
 To add a custom tag, click the "Create New Tag".  Once you submit the tag, you can go back and upload a button for it.  The image should be 23 x 22 GIF with transparent background and no larger than 10kb.
 
