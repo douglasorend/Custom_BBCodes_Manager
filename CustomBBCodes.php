@@ -167,10 +167,22 @@ function CustomBBCodes_Edit($tag)
 	if (isset($_GET['upload']))
 	{
 		checkSession();
-		copy_gif_to_themes($row['tag']);
-		update_bbc_tag($tag, array(
-			'button' => (isset($_POST['button']) ? 1 : 0),
-		));
+		if (isset($_POST['remove']))
+		{
+			// Removing button?
+			remove_gif_from_themes($row['tag']);
+			update_bbc_tag($tag, array(
+				'button' => 0,
+			));
+		}
+		else
+		{
+			// Not removing button...  Must be adding one.
+			copy_gif_to_themes($row['tag']);
+			update_bbc_tag($tag, array(
+				'button' => 1,
+			));
+		}
 		redirectexit('action=admin;area=postsettings;sa=custombbc;tag=' . $row['id']);
 	}
 
@@ -178,16 +190,6 @@ function CustomBBCodes_Edit($tag)
 	if (isset($_GET['save']))
 	{
 		checkSession();
-
-		// Removing button?
-		if (isset($_POST['remove']))
-		{
-			remove_gif_from_themes($row['tag']);
-			update_bbc_tag($tag, array(
-				'button' => 0,
-			));
-			redirectexit('action=admin;area=postsettings;sa=custombbc;tag=' . $row['id']);
-		}
 
 		// Populate the data fields with information supplied:
 		$data = array(
@@ -201,6 +203,7 @@ function CustomBBCodes_Edit($tag)
 			'trim' => (isset($_POST['cb_trim']) ? $_POST['cb_trim'] : 'none'),
 			'ctype' => (isset($_POST['cb_type']) ? $_POST['cb_type'] : 'parsed_content'),
 			'button' => (isset($_POST['button']) ? $_POST['button'] : 0),
+			'description' => (isset($_POST['description']) ? $_POST['description'] : ''),
 		);
 
 		// Make sure that the bbcode doesn't exist.  If it does, error out....

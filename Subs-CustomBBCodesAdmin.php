@@ -15,8 +15,8 @@ if (!defined('SMF'))
 function get_bbc_count()
 {
 	global $smcFunc;
-
 	isAllowedTo('admin_forum');
+
 	$request = $smcFunc['db_query']('', '
 		SELECT COUNT(*)
 		FROM {db_prefix}bbcodes',
@@ -32,8 +32,8 @@ function get_bbc_count()
 function get_bbc_data($start, $items_per_page, $sort)
 {
 	global $smcFunc, $settings, $scripturl, $context;
-
 	isAllowedTo('admin_forum');
+
 	$request = $smcFunc['db_query']('', '
 		SELECT *
 		FROM {db_prefix}bbcodes
@@ -102,8 +102,8 @@ function readable_bbc_type($ctype, $tag)
 function get_bbc_row($id)
 {
 	global $smcFunc;
-
 	isAllowedTo('admin_forum');
+
 	$request = $smcFunc['db_query']('', '
 		SELECT *
 		FROM {db_prefix}bbcodes
@@ -130,8 +130,14 @@ function get_bbc_row($id)
 function remove_bbc_tag($id)
 {
 	global $smcFunc;
-
 	isAllowedTo('admin_forum');
+
+	// Retrieve the tag name and remove the image button from the server:
+	$tag = get_bbc_row($id);
+	if (isset($tag['tag']))
+		remove_gif_from_themes($tag['tag']);
+	
+	// Delete the entry from the database:
 	$smcFunc['db_query']('', '
 		DELETE FROM {db_prefix}bbcodes
 		WHERE id = {int:id}',
@@ -148,8 +154,8 @@ function remove_bbc_tag($id)
 function update_bbc_tag($id, $new)
 {
 	global $smcFunc;
-
 	isAllowedTo('admin_forum');
+
 	$values = get_bbc_row((int) $id);
 	if (!isset($values['id']) && $values['id'] != ((int) $id))
 		return;
@@ -188,6 +194,7 @@ function replace_tag($data)
 			'trim' => 'text',
 			'ctype' => 'text',
 			'button' => 'int',
+			'description' => 'text',
 		),
 		array(
 			(int) $data['id'],
@@ -200,6 +207,7 @@ function replace_tag($data)
 			isset($data['trim']) ? addslashes($data['trim']) : '',
 			isset($data['ctype']) ? addslashes($data['ctype']) : '',
 			(int) isset($data['button']) ? $data['button'] : 0,
+			isset($data['description']) ? addslashes($data['description']) : '',
 		),
 		array('id')
 	);
@@ -212,7 +220,6 @@ function replace_tag($data)
 function copy_gif_to_themes($tag)
 {
 	global $smcFunc, $boarddir, $modSettings;
-
 	isAllowedTo('admin_forum');
 
 	// Make sure this is actually a GIF file is that less than 10kb:
@@ -243,7 +250,7 @@ function copy_gif_to_themes($tag)
 
 function remove_gif_from_themes($tag)
 {
-	global $smcFunc, $boarddir;
+	global $smcFunc, $boarddir, $modSettings;
 	isAllowedTo('admin_forum');
 
 	$request = $smcFunc['db_query']('', '
@@ -254,7 +261,7 @@ function remove_gif_from_themes($tag)
 			AND id_theme IN ({raw:known})',
 		array(
 			'name' => 'theme_dir',
-			'known' => $modSettings['knownThemes']
+			'known' => $modSettings['knownThemes'],
 		)
 	);
 	while ($theme = $smcFunc['db_fetch_assoc']($request))
@@ -283,6 +290,7 @@ function get_max_bbcode_id()
 function bbcode_exists($tag, $id)
 {
 	global $smcFunc, $test_tag;
+	isAllowedTo('admin_forum');
 
 	// Is this bbcode is already defined by SMF itself or another mod?
 	$test_tag = $tag;
@@ -314,6 +322,7 @@ function bbcode_exists($tag, $id)
 function bbcode_test(&$codes)
 {
 	global $test_tag;
+	isAllowedTo('admin_forum');
 	foreach ($codes as $bbcode)
 	{
 		if ($bbcode['tag'] == $test_tag)
