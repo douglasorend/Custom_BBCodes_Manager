@@ -145,28 +145,28 @@ function remove_bbc_tag($id)
 	cache_put_data('bbcodes_buttons', null, 86400);
 }
 
-function update_bbc_tag($id, $arr)
+function update_bbc_tag($id, $new)
 {
 	global $smcFunc;
 
 	isAllowedTo('admin_forum');
-	$values = get_bbc_row($id);
-	if (empty($values))
+	$values = get_bbc_row((int) $id);
+	if (!isset($values['id']) && $values['id'] != ((int) $id))
 		return;
 	$values = array(
 		'id' => (int) $id,
-		'content' => isset($arr['content']) ? $arr['content'] : $values['content'],
-		'before' => isset($arr['before']) ? $arr['before'] : $values['before'],
-		'after' => isset($arr['after']) ? $arr['after'] : $values['after'],
-		'enabled' => (int) isset($arr['enabled']) ? $arr['enabled'] : $values['enabled'],
-		'tag' => isset($arr['tag']) ? $arr['tag'] : $values['tag'],
-		'description' => isset($arr['description']) ? $arr['description'] : $values['description'],
-		'block_level' => (int) isset($arr['block_level']) ? $arr['block_level'] : $values['block_level'],
-		'trim' => isset($arr['trim']) ? $arr['trim'] : $values['trim'],
-		'ctype' => isset($arr['ctype']) ? $arr['ctype'] : $values['ctype'],
-		'button' => (int) isset($arr['button']) ? $arr['button'] : $values['button'],
+		'content' => isset($new['content']) ? $new['content'] : $values['content'],
+		'before' => isset($new['before']) ? $new['before'] : $values['before'],
+		'after' => isset($new['after']) ? $new['after'] : $values['after'],
+		'enabled' => (int) isset($new['enabled']) ? $new['enabled'] : $values['enabled'],
+		'tag' => isset($new['tag']) ? $new['tag'] : $values['tag'],
+		'description' => isset($new['description']) ? $new['description'] : $values['description'],
+		'block_level' => (int) isset($new['block_level']) ? $new['block_level'] : $values['block_level'],
+		'trim' => isset($new['trim']) ? $new['trim'] : $values['trim'],
+		'ctype' => isset($new['ctype']) ? $new['ctype'] : $values['ctype'],
+		'button' => (int) isset($new['button']) ? $new['button'] : $values['button'],
 	);
-	replace_tag($id, $values);
+	replace_tag($values);
 }
 
 function replace_tag($data)

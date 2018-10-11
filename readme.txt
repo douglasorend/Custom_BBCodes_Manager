@@ -1,5 +1,5 @@
 [hr]
-[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.2[/b][/size][/color]
+[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.3[/b][/size][/color]
 [url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=3699]Link to Mod[/url]
 [/center]
 [hr]
@@ -17,6 +17,10 @@ This mod was tested on SMF 2.0.8 and should work on SMF v2.0 and above versions.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
 [quote]
+[b][u]v1.3 - September 29th, 2014[/u][/b]
+o Fixed bug that made empty bbcode entries when attempting to disable/enable bbcodes...
+o Removed equal sign from bbcode in editor...
+
 [b][u]v1.2 - September 29th, 2014[/u][/b]
 o Added code so that "parsed content" tags are recognized properly by BBcode parser.
 o Fixed bug so that Custom BBCode UI properly displays HTML that the bbcode will use.
