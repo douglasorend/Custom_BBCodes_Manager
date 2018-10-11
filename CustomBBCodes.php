@@ -271,15 +271,14 @@ function CustomBBCodes_Edit($tag)
 		case 'parsed_content':
 		case 'unparsed_commas':
 		default:
-			$row['html'] = '{content}';
 			$search = array('$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8');
 			$replace = array('{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}');
-			if (isset($row['before']))
-				$row['html'] = str_replace($search, $replace, $row['before']) . $row['html'];
-			if (isset($row['after']))
-				$row['html'] .= str_replace($search, $replace, $row['after']);
+			$row['html'] = str_replace($search, $replace, $row['before']) . '{content}' . str_replace($search, $replace, $row['after']);
 			break;
 	}
+
+	// Let's make the BROWSER output this HTML string for the user correctly!
+	$row['html'] = htmlentities($row['html']);
 
 	// Let's get the path to the button image used by the editor:
 	$row['image'] = $settings['images_url'] . '/bbc/' . $row['tag'] . '.gif';

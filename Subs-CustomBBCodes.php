@@ -57,9 +57,15 @@ function CustomBBCodes_BBCodes(&$codes)
 					$row['content'] = stripslashes($row['content']);
 					break;
 
+				case 'parsed_content':
+					unset($row['ctype']);
+					unset($row['content']);
+					$row['before'] = stripslashes($row['before']);
+					$row['after'] = stripslashes($row['after']);
+					break;
+
 				case 'parsed_equals':
 				case 'unparsed_equals':
-				case 'parsed_content':
 				case 'unparsed_commas':
 				default:
 					unset($row['content']);
