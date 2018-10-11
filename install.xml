@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>Dougiefresh:CustomBBCodes</id>
+	<version>1.0</version>
+
+	<file name="$sourcedir/ManagePosts.php">
+		<operation>
+			<search position="before"><![CDATA[		'bbc' => 'ModifyBBCSettings',
+]]></search>
+			<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
+]]></add>
+		</operation>
+	</file>
+	<file name="$languagedir/Admin.english.php">
+		<operation>
+			<search position="after"><![CDATA[
+?>]]></search>
+			<add><![CDATA[
+// Added for Custom BBCode Manager
+$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
+
+]]></add>
+		</operation>
+	</file>
+</modification>
