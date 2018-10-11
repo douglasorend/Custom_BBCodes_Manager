@@ -4,120 +4,136 @@
 *********************************************************************************
 * This program is distributed in the hope that it is and will be useful, but
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY
-* or FITNESS FOR A PARTICULAR PURPOSE, 
+* or FITNESS FOR A PARTICULAR PURPOSE,
 **********************************************************************************/
-if (!defined('SMF')) 
+if (!defined('SMF'))
 	die('Hacking attempt...');
-	
+
 /**********************************************************************************
 * CustomBBCode hooks
 **********************************************************************************/
 function CustomBBCodes_Admin(&$admin_areas)
 {
 	global $txt, $sourcedir;
+
 	require_once($sourcedir . '/CustomBBCodes.php');
 	$admin_areas['layout']['areas']['postsettings']['subsections']['custombbc'] = array($txt['CustomBBCode_List_Title']);
 }
 
 function CustomBBCodes_BBCodes(&$codes)
 {
-	global $smcFunc, $settings;
+	global $smcFunc;
 
-	// Build the subforum tree array:
-	$request = $smcFunc['db_query']('', '
-		SELECT *
-		FROM {db_prefix}bbcodes 
-		WHERE enabled = {int:enabled}',
-		array(
-			'enabled' => 1
-		)
-	);
-	while ($row = $smcFunc['db_fetch_assoc']($request))
+	if (($bbcodes = cache_get_data('bbcodes_custom', 86400)) == null)
 	{
-		// Strip unnecessary fields from the resulting array:
-		if ($row['ctype'] != 'parsed_content') 
-			$row['type'] = $row['ctype'];
-		if ($row['trim'] == 'none') 
-			unset($row['trim']);
-		$row['block_level'] = ($row['block_level'] ? true : false);
-		if (!$row['block_level'])
-			unset($row['block_level']);
-		if (empty($row['test']))
-			unset($row['test']);
-		else
-			$row['test'] = stripslashes($row['test']);
-		switch($row['ctype'])
+		// Build the subforum tree array:
+		$request = $smcFunc['db_query']('', '
+			SELECT *
+			FROM {db_prefix}bbcodes
+			WHERE enabled = {int:enabled}',
+			array(
+				'enabled' => 1
+			)
+		);
+		$bbcodes = array();
+		while ($row = $smcFunc['db_fetch_assoc']($request))
 		{
-			case 'unparsed_content':
-			case 'closed':
-			case 'unparsed_commas_content':
-			case 'unparsed_equals_content':
-				unset($row['before']);
-				unset($row['after']);
-				$row['content'] = stripslashes( $row['content'] ); 
-				break;
-				
-			case 'parsed_equals':
-			case 'unparsed_equals':
-			case 'parsed_content':
-			case 'unparsed_commas':
-			default:
-				unset($row['content']);
-				$row['before'] = stripslashes( $row['before'] );
-				$row['after'] = stripslashes( $row['after'] );
-				break;
-		}
-		unset($row['ctype']);
+			// Strip unnecessary fields from the resulting array:
+			if ($row['ctype'] != 'parsed_content')
+				$row['ctype'] = $row['ctype'];
+			if ($row['trim'] == 'none')
+				unset($row['trim']);
+			$row['block_level'] = ($row['block_level'] ? true : false);
+			if (!$row['block_level'])
+				unset($row['block_level']);
+			switch($row['ctype'])
+			{
+				case 'unparsed_content':
+				case 'closed':
+				case 'unparsed_commas_content':
+				case 'unparsed_equals_content':
+					unset($row['before']);
+					unset($row['after']);
+					$row['content'] = stripslashes($row['content']);
+					break;
 
-		// Add the new BBCode to the array:
-		$codes[] = $row;
-		//if ($row['tag'] == 'float') {print_r($row); exit;}
+				case 'parsed_equals':
+				case 'unparsed_equals':
+				case 'parsed_content':
+				case 'unparsed_commas':
+				default:
+					unset($row['content']);
+					$row['before'] = stripslashes($row['before']);
+					$row['after'] = stripslashes($row['after']);
+					break;
+			}
+			unset($row['ctype']);
+
+			// Add the new BBCode to the array:
+			$bbcodes[] = $row;
+		}
+		$smcFunc['db_free_result']($request);
+
+		// Stuff this array into the cache for future use:
+		cache_put_data('bbcodes_custom', $bbcodes, 86400);
 	}
-	$smcFunc['db_free_result']($request);
+	$codes = array_merge($codes, $bbcodes);
 }
 
-function CustomBBCodes_Buttons(&$codes)
+function CustomBBCodes_Buttons(&$buttons)
 {
 	global $smcFunc;
 
-	// Build the subforum tree array:
-	$request = $smcFunc['db_query']('', '
-		SELECT tag, ctype, description 
-		FROM {db_prefix}bbcodes 
-		WHERE enabled = {int:enabled}
-			AND button = {int:button}',
-		array(
-			'enabled' => 1,
-			'button' => 1,
-		)
-	);
-	while ($row = $smcFunc['db_fetch_assoc']($request))
+	if (($cached = cache_get_data('bbcodes_buttons', 86400)) == null)
 	{
-		$tag = $row['tag'];
-		$codes[1][$tag]['code'] = $tag;
-		$codes[1][$tag]['image'] = $tag;
-		$codes[1][$tag]['description'] = (empty($row['description']) ? $tag : $row['description']);
+		$request = $smcFunc['db_query']('', '
+			SELECT tag, ctype, description
+			FROM {db_prefix}bbcodes
+			WHERE enabled = {int:enabled}
+				AND button = {int:button}',
+			array(
+				'enabled' => 1,
+				'button' => 1,
+			)
+		);
 
-		switch($row['type'])
+		// Build the Custom BBcode array:
+		$cached = array();
+		while ($row = $smcFunc['db_fetch_assoc']($request))
 		{
-			case 'unparsed_content':
-			case 'closed':
-			case 'unparsed_commas_content':
-			case 'unparsed_equals_content':
-				$codes[1][$tag]['before'] = '[' . $tag . ']'; 
-				break;
-				
-			case 'parsed_equals':
-			case 'unparsed_equals':
-			case 'parsed_content':
-			case 'unparsed_commas':
-			default:
-				$codes[1][$tag]['before'] = '[' . $tag . '=]'; 
+			$tag = stripslashes($row['tag']);
+			$tmp = array(
+				'image' => $tag,
+				'code' => $tag,
+				'description' => stripslashes(empty($row['description']) ? $tag : $row['description']),
+				'after' => ($row['ctype'] != 'closed' ? '[/' . $tag . ']' : ''),
+			);
+
+			switch($row['ctype'])
+			{
+				case 'unparsed_content':
+				case 'closed':
+				case 'unparsed_commas_content':
+				case 'unparsed_equals_content':
+					$tmp['before'] = '[' . $tag . ']';
+					break;
+
+				case 'parsed_equals':
+				case 'unparsed_equals':
+				case 'parsed_content':
+				case 'unparsed_commas':
+				default:
+					$tmp['before'] = '[' . $tag . '=]';
+			}
+
+			$cached[] = $tmp;
 		}
-		if ($row['type'] != 'closed')
-			$codes[1][$tag]['after'] = '[/' . $tag . ']'; 
+		$smcFunc['db_free_result']($request);
+
+		// Stuff this array into the cache for future use:
+		cache_put_data('bbcodes_buttons', $cached, 86400);
 	}
-	$smcFunc['db_free_result']($request);
+	$buttons[0] = array_merge($buttons[0], $cached);
 }
 
 ?>

@@ -38,28 +38,38 @@ function template_CustomBBCode_Edit()
 							<dt>', $txt['Edit_name'], ':</dt>
 							<dd><input type="text" name="tag" id="tag" value="', $tag['tag'], '" size="30" class="input_text" /></dd>
 
+							<dt>', $txt['List_description'], ':</dt>
+							<dd><input type="text" name="description" id="description" value="', $tag['description'], '" size="60" class="input_text" /></dd>
+						</dl>
+
+						<hr class="hrcolor clear" />
+						<dl class="settings">
 							<dt>', $txt['Edit_type'], ':</dt>
-							<dd><select name="cb_type" ONCHANGE="Process();">
-								<option value="parsed_content" ', ($tag['ctype'] == 'parsed_content' ? ' selected="selected"' : ''), '>parsed_content</option>
-								<option value="unparsed_equals" ', ($tag['ctype'] == 'unparsed_equals' ? ' selected="selected"' : ''), '>unparsed_equals</option>
-								<option value="parsed_equals" ', ($tag['ctype'] == 'parsed_equals' ? ' selected="selected"' : ''), '>parsed_equals</option>
-								<option value="unparsed_content" ', ($tag['ctype'] == 'unparsed_content' ? ' selected="selected"' : ''), '>unparsed_content</option>
-								<option value="closed" ', ($tag['ctype'] == 'closed' ? ' selected="selected"' : ''), '>closed</option>
-								<option value="unparsed_commas" ', ($tag['ctype'] == 'unparsed_commas' ? ' selected="selected"' : ''), '>unparsed_commas</option>
-								<option value="unparsed_commas_content" ', ($tag['ctype'] == 'unparsed_commas_content' ? ' selected="selected"' : ''), '>unparsed_commas_content</option>
-								<option value="unparsed_equals_content" ', ($tag['ctype'] == 'unparsed_equals_content' ? ' selected="selected"' : ''), '>unparsed_equals_content</option>
-							</select></dd>
+							<dd>
+								<select name="cb_type" ONCHANGE="Process();">
+									<option value="parsed_content" ', ($tag['ctype'] == 'parsed_content' ? ' selected="selected"' : ''), '>', $txt['parsed_content'], '</option>
+									<option value="unparsed_equals" ', ($tag['ctype'] == 'unparsed_equals' ? ' selected="selected"' : ''), '>', $txt['unparsed_equals'], '</option>
+									<option value="parsed_equals" ', ($tag['ctype'] == 'parsed_equals' ? ' selected="selected"' : ''), '>', $txt['parsed_equals'], '</option>
+									<option value="unparsed_content" ', ($tag['ctype'] == 'unparsed_content' ? ' selected="selected"' : ''), '>', $txt['unparsed_content'], '</option>
+									<option value="closed" ', ($tag['ctype'] == 'closed' ? ' selected="selected"' : ''), '>', $txt['closed'], '</option>
+									<option value="unparsed_commas" ', ($tag['ctype'] == 'unparsed_commas' ? ' selected="selected"' : ''), '>', $txt['unparsed_commas'], '</option>
+									<option value="unparsed_commas_content" ', ($tag['ctype'] == 'unparsed_commas_content' ? ' selected="selected"' : ''), '>', $txt['unparsed_commas_content'], '</option>
+									<option value="unparsed_equals_content" ', ($tag['ctype'] == 'unparsed_equals_content' ? ' selected="selected"' : ''), '>', $txt['unparsed_equals_content'], '</option>
+								</select>
+							</dd>
 
 							<dt>', $txt['List_tag'], ':</dt>
 							<dd><input type="text" id="formDiv" value="" size="60" class="input_text" disabled="disabled" /></dd>
 
 							<dt>', $txt['Edit_trim'], ':</dt>
-							<dd><select name="cb_trim">
-								<option value="none" ', ($tag['trim'] == 'none' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_no'], '</option>
-								<option value="inside" ', ($tag['trim'] == 'inside' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_in'], '</option>
-								<option value="outside" ', ($tag['trim'] == 'outside' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_out'], '</option>
-								<option value="both" ', ($tag['trim'] == 'both' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_both'], '</option>
-							</select></dd>
+							<dd>
+								<select name="cb_trim">
+									<option value="none" ', ($tag['trim'] == 'none' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_no'], '</option>
+									<option value="inside" ', ($tag['trim'] == 'inside' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_in'], '</option>
+									<option value="outside" ', ($tag['trim'] == 'outside' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_out'], '</option>
+									<option value="both" ', ($tag['trim'] == 'both' ? ' selected="selected"' : ''), '>', $txt['Edit_trim_both'], '</option>
+								</select>
+							</dd>
 
 							<dt>', $txt['Edit_block_level'], ':</dt>
 							<dd><input type="checkbox" name="block" id="block"', ($tag['block_level'] ? ' checked="checked"' : ''), ' value="1" class="input_check" /></dd>
@@ -67,20 +77,27 @@ function template_CustomBBCode_Edit()
 
 						<hr class="hrcolor clear" />
 						<dl class="settings">
-							<dt>', $txt['Edit_text'], '<div class="smalltext" id="htmlDiv" style="visibility:visible">Test</div></dt>
+							<dt>', $txt['Edit_text'], '<div class="smalltext" id="htmlDiv" style="visibility:visible">', $txt['Edit_test_bbcode'], '</div></dt>
 							<dd><textarea name="html" id="html" style="height: 120px; width: 450px;">', $tag['html'], '</textarea></dd>
 						</dl>';
 						
+	if ($tag['url_exists'])
+		echo '
+						<hr class="hrcolor clear" />
+						<dl class="settings">
+							<dt>', $txt['Edit_button'], ':</dt>
+							<dd><img src="', $tag['image'], '" alt="" /></dd>
+
+							<dt>', $txt['Edit_show_button'], ':</dt>
+							<dd><input type="checkbox" name="button" id="button"', ($tag['button'] == 1 ? ' checked="checked"' : ''), ' value="1" class="input_check" /></dd>
+						</dl>';
+
 	// Finish the rest of this template:
 	echo '
 
 						<hr class="hrcolor clear" />
 						<div align="right">
-							<input type="submit" class="button_submit" name="submit" value="', $txt['attachment_manager_save'], '" />';
-	if ($tag['url_exists'])
-		echo '
-							<input type="submit" class="button_submit" name="remove" value="', $txt['Edit_remove'], '" onclick="return confirm(\'', $txt['Edit_remove_confirm'], '\');" />';
-	echo '
+							<input type="submit" class="button_submit" name="submit" value="', $txt['attachment_manager_save'], '" />
 						</div>
 						<input type="hidden" name="sc" value="', $context['session_id'], '" />
 					</form>
@@ -97,20 +114,6 @@ function template_CustomBBCode_Edit()
 				<span class="topslice"><span></span></span>
 				<div class="content">
 					<form action="', $context['post_url'], ';upload" method="post" enctype="multipart/form-data" accept-charset="', $context['character_set'], '">';
-	if ($tag['url_exists'])
-		echo '
-						<dl class="settings">
-							<dt>', $txt['List_description'], ':</dt>
-							<dd><input type="text" name="description" id="description" value="', $tag['description'], '" size="60" class="input_text" /></dd>
-
-							<dt>', $txt['Edit_show_button'], ':</dt>
-							<dd><input type="checkbox" name="button" id="button"', ($tag['button'] == 1 ? ' checked="checked"' : ''), ' value="1" class="input_check" /></dd>
-
-							<dt>', $txt['Edit_button'], ':</dt>
-							<dd><img src="', $tag['image'], '" alt="" /></dd>
-						</dl>
-						<hr class="hrcolor clear" />';
-
 	echo '
 						<p>', $txt['Edit_Upload_description'], '</p>
 						<br class="brcolor clear" />
@@ -120,8 +123,13 @@ function template_CustomBBCode_Edit()
 						</dl>
 						<hr class="hrcolor clear" />
 						<div align="right">
-							<input type="submit" class="button_submit" name="submit" value="', $txt['Edit_Upload'], '" />
+							<input type="submit" class="button_submit" name="submit" value="', $txt['Edit_Upload'], '" />';
+	if ($tag['url_exists'])
+		echo '
+							<input type="submit" class="button_submit" name="remove" value="', $txt['Edit_remove'], '" onclick="return confirm(\'', $txt['Edit_remove_confirm'], '\');" />';
+	echo '
 						</div>
+						<input type="hidden" name="sc" value="', $context['session_id'], '" />
 					</form>
 				</div>
 				<span class="botslice"><span></span></span>

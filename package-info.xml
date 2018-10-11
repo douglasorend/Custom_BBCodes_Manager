@@ -4,30 +4,36 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>dougiefresh:CustomBBCodes</id>
 	<name>Custom BBCodes Manager</name>
-	<version>1.0</version>
+	<version>1.1</version>
 	<type>modification</type>
 	
 	<install for="2.0 - 2.0.99">
 		<readme type="file" parsebbc="true">readme.txt</readme>
+		<code>add_remove_hooks.php</code>
 		<database>edit_db.php</database>
 		<modification>install.xml</modification>
 		<require-file name="CustomBBCodes.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodes.english.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodes.english-utf8.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="Subs-CustomBBCodes.php" destination="$sourcedir" />
 		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodes.template.php" destination="$boarddir/Themes/default" />
-		<code>add_remove_hooks.php</code>
 		<redirect url="index.php?action=admin;area=postsettings;sa=custombbc;" timeout="5000">redirect.txt</redirect>
 	</install>
-
 	<uninstall for="2.0 - 2.0.99">
+		<code>add_remove_hooks.php</code>
 		<modification reverse="true">install.xml</modification>
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english.php" />
+		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english-utf8.php" />
 		<remove-file name="$sourcedir/CustomBBCodes.php" />
 		<remove-file name="$sourcedir/Subs-CustomBBCodes.php" />
 		<remove-file name="$sourcedir/Subs-CustomBBCodesAdmin.php" />
 		<remove-file name="$boarddir/Themes/default/CustomBBCodes.template.php" />
-		<code>add_remove_hooks.php</code>
 	</uninstall>
 	
+	<upgrade from="1.0">
+		<require-file name="CustomBBCodes.php" destination="$sourcedir" />
+		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
+		<require-file name="CustomBBCodes.english-utf8.php" destination="$boarddir/Themes/default/languages" />
+	</upgrade>		
 </package-info>

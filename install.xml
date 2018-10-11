@@ -1,27 +1,67 @@
 <?xml version="1.0"?>
 <!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
-
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
-	<id>Dougiefresh:CustomBBCodes</id>
-	<version>1.0</version>
+<id>dougiefresh:CustomBBCodes</id>
+<name>Custom BBCodes Manager</name>
+<version>1.1</version>
 
-	<file name="$sourcedir/ManagePosts.php">
-		<operation>
-			<search position="before"><![CDATA[		'bbc' => 'ModifyBBCSettings',
+<!-------------------------------------------------------------------------->
+<!-- Better Modify Board UI (ManageBoards.php)                            -->
+<!-------------------------------------------------------------------------->
+<file name="$sourcedir/ManagePosts.php">
+	<operation>
+		<search position="before"><![CDATA[		'bbc' => 'ModifyBBCSettings',
 ]]></search>
-			<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
+		<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
 ]]></add>
-		</operation>
-	</file>
-	<file name="$languagedir/Admin.english.php">
-		<operation>
-			<search position="after"><![CDATA[
+	</operation>
+</file>
+
+<!-------------------------------------------------------------------------->
+<!-- Language String modification (Admin.[language].php)                  -->
+<!-------------------------------------------------------------------------->
+<file name="$languagedir/Admin.english.php">
+	<operation>
+		<search position="after"><![CDATA[
 ?>]]></search>
-			<add><![CDATA[
+		<add><![CDATA[
 // Added for Custom BBCode Manager
 $txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
 
 ]]></add>
-		</operation>
-	</file>
+	</operation>
+</file>
+<file name="$languagedir/Admin.english-utf8.php" error="skip">
+	<operation>
+		<search position="after"><![CDATA[
+?>]]></search>
+		<add><![CDATA[
+// Added for Custom BBCode Manager
+$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
+
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Admin.english-british.php" error="skip">
+	<operation>
+		<search position="after"><![CDATA[
+?>]]></search>
+		<add><![CDATA[
+// Added for Custom BBCode Manager
+$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
+
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Admin.english-british-utf8.php" error="skip">
+	<operation>
+		<search position="after"><![CDATA[
+?>]]></search>
+		<add><![CDATA[
+// Added for Custom BBCode Manager
+$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
+
+]]></add>
+	</operation>
+</file>
 </modification>

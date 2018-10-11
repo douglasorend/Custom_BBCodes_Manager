@@ -4,9 +4,9 @@
 *********************************************************************************
 * This program is distributed in the hope that it is and will be useful, but
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY
-* or FITNESS FOR A PARTICULAR PURPOSE . 
+* or FITNESS FOR A PARTICULAR PURPOSE .
 **********************************************************************************/
-if (!defined('SMF')) 
+if (!defined('SMF'))
 	die('Hacking attempt...');
 
 function CustomBBCodes_Browse()
@@ -18,7 +18,7 @@ function CustomBBCodes_Browse()
 	loadTemplate('CustomBBCodes');
 	loadLanguage('CustomBBCodes');
 	require_once($sourcedir . '/Subs-CustomBBCodesAdmin.php');
-	
+
 	// Editing or Creating a tag?
 	if (isset($_POST['newtag']))
 	{
@@ -28,21 +28,21 @@ function CustomBBCodes_Browse()
 	if (isset($_GET['edit']))
 	{
 		checkSession('get');
-		return CustomBBCodes_Edit( (int) $_GET['edit'] );
+		return CustomBBCodes_Edit((int) $_GET['edit']);
 	}
 
 	if (isset($_GET['delete']))
 	{
 		checkSession('get');
-		remove_bbc_tag( (int) $_GET['delete'] );
+		remove_bbc_tag((int) $_GET['delete']);
 		redirectexit('action=admin;area=postsettings;sa=custombbc');
 	}
-	
+
 	// Enabling or disabling a tag?
 	if (isset($_GET['enable']))
 	{
 		checkSession('get');
-		update_bbc_tag( (int) $_GET['enable'], array(
+		update_bbc_tag((int) $_GET['enable'], array(
 			'enabled' => 1,
 		));
 		redirectexit('action=admin;area=postsettings;sa=custombbc');
@@ -50,12 +50,12 @@ function CustomBBCodes_Browse()
 	if (isset($_GET['disable']))
 	{
 		checkSession('get');
-		update_bbc_tag( (int) $_GET['disable'], array(
+		update_bbc_tag((int) $_GET['disable'], array(
 			'enabled' => 0,
 		));
 		redirectexit('action=admin;area=postsettings;sa=custombbc');
 	}
-	
+
 	// Build the array required for "createList" function:
 	$list_options = array(
 		'id' => 'list_bbc',
@@ -139,9 +139,9 @@ function CustomBBCodes_Browse()
 
 function CustomBBCodes_Edit($tag)
 {
-	global $txt, $scripturl, $context, $modSettings, $smcFunc, $settings;
+	global $txt, $scripturl, $context, $smcFunc, $settings;
 
-	// Display the template with the information about the requested tag . 
+	// Display the template with the information about the requested tag .
 	checkSession('request');
 	isAllowedTo('admin_forum');
 	$context['sub_template'] = 'CustomBBCode_Edit';
@@ -161,16 +161,15 @@ function CustomBBCodes_Edit($tag)
 			'block_level' => 0,
 			'trim' => 'none',
 			'ctype' => 'parsed_content',
-		);			
-	
+		);
+
 	// Uploading button?
 	if (isset($_GET['upload']))
 	{
 		checkSession();
-		copy_gif_to_themes( $row['tag'] );
+		copy_gif_to_themes($row['tag']);
 		update_bbc_tag($tag, array(
 			'button' => (isset($_POST['button']) ? 1 : 0),
-			'description' => (isset($_POST['description']) ? addslashes( $_POST['description'] ) : ''),
 		));
 		redirectexit('action=admin;area=postsettings;sa=custombbc;tag=' . $row['id']);
 	}
@@ -183,32 +182,33 @@ function CustomBBCodes_Edit($tag)
 		// Removing button?
 		if (isset($_POST['remove']))
 		{
-			remove_gif_from_themes( $row['tag'] );
+			remove_gif_from_themes($row['tag']);
 			update_bbc_tag($tag, array(
 				'button' => 0,
 			));
 			redirectexit('action=admin;area=postsettings;sa=custombbc;tag=' . $row['id']);
 		}
-		
+
 		// Populate the data fields with information supplied:
 		$data = array(
 			'id' => ($tag == -1 ? get_max_bbcode_id() + 1 : $tag),
+			'content' => '',
+			'before' => '',
+			'after' => '',
 			'enabled' => (isset($row['enabled']) ? (int) $row['enabled'] : 1),
+			'tag' => (isset($_POST['tag']) ? $_POST['tag'] : ''),
 			'block_level' => (isset($_POST['block']) ? 1 : 0),
-			'tag' => (isset($_POST['tag']) ? addslashes( $smcFunc['strtolower']($_POST['tag']) ) : ''),
-			'trim' => (isset($_POST['cb_trim']) ? addslashes( $_POST['cb_trim'] ): 'none'),
-			'ctype' => (isset($_POST['cb_type']) ? addslashes( $_POST['cb_type'] ) : 'parsed_content'),
-			'content' => '', 
-			'before' => '', 
-			'after' => '', 
+			'trim' => (isset($_POST['cb_trim']) ? $_POST['cb_trim'] : 'none'),
+			'ctype' => (isset($_POST['cb_type']) ? $_POST['cb_type'] : 'parsed_content'),
+			'button' => (isset($_POST['button']) ? $_POST['button'] : 0),
 		);
-		
+
 		// Make sure that the bbcode doesn't exist.  If it does, error out....
 		if (bbcode_exists($data['tag'], $data['id']))
 			fatal_lang_error('bbcode_exists', false);
 
 		// Break the given HTML string into a more understandable form for SMF....
-		$text = isset($_POST['html']) ? addslashes( $_POST['html'] ) : '';
+		$text = isset($_POST['html']) ? $_POST['html'] : '';
 		switch($data['ctype'])
 		{
 			case 'closed':
@@ -220,11 +220,11 @@ function CustomBBCodes_Edit($tag)
 
 			case 'unparsed_commas_content':
 			case 'unparsed_equals_content':
-				$search = array('{content}', '{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}'); 
+				$search = array('{content}', '{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}');
 				$replace = array('$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9');
 				$data['content'] = str_replace($search, $replace, $text);
 				break;
-				
+
 			case 'parsed_equals':
 			case 'parsed_content':
 			case 'unparsed_equals':
@@ -262,10 +262,10 @@ function CustomBBCodes_Edit($tag)
 		case 'unparsed_commas_content':
 		case 'unparsed_equals_content':
 			$search = array('$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9');
-			$replace = array('{content}', '{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}'); 
+			$replace = array('{content}', '{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}');
 			$row['html'] = str_replace($search, $replace, $row['content']);
 			break;
-			
+
 		case 'parsed_equals':
 		case 'unparsed_equals':
 		case 'parsed_content':
@@ -273,7 +273,7 @@ function CustomBBCodes_Edit($tag)
 		default:
 			$row['html'] = '{content}';
 			$search = array('$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8');
-			$replace = array('{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}'); 
+			$replace = array('{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}');
 			if (isset($row['before']))
 				$row['html'] = str_replace($search, $replace, $row['before']) . $row['html'];
 			if (isset($row['after']))
@@ -283,7 +283,7 @@ function CustomBBCodes_Edit($tag)
 
 	// Let's get the path to the button image used by the editor:
 	$row['image'] = $settings['images_url'] . '/bbc/' . $row['tag'] . '.gif';
-	$row['url_exists'] = url_exists($row['image']);
+	$row['url_exists'] = file_exists($settings['theme_dir'] . '/images/bbc/' . $row['tag'] . '.gif');
 
 	// Store the row in the context variable:
 	$context['this_BBC'] = $row;

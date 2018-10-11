@@ -1,7 +1,4 @@
 <?php
-global $db_prefix, $smcFunc, $sourcedir, $txt;
-global $boardurl, $cookiename, $mbname, $language, $boarddir;
-
 if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('SMF'))
 	require_once(dirname(__FILE__) . '/SSI.php');
 elseif (!defined('SMF'))
@@ -82,6 +79,6 @@ $indexes = array(
 $smcFunc['db_create_table']('{db_prefix}bbcodes', $columns, $indexes, array(), 'update_remove');
 
 // Echo that we are done if necessary:
-if ($SSI_INSTALL)
+if (SMF == 'SSI')
 	echo 'DB Changes should be made now...';
 ?>
