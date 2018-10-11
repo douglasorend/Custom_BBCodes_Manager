@@ -1,5 +1,5 @@
 [hr]
-[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.4[/b][/size][/color]
+[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.5[/b][/size][/color]
 [url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=3699]Link to Mod[/url]
 [/center]
 [hr]
@@ -16,29 +16,16 @@ To add a custom tag, click the "Create New Tag".  Once you submit the tag, you c
 This mod was tested on SMF 2.0.8 and should work on SMF v2.0 and above versions.  SMF 1.x is not and will not be supported by this mod.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
-[quote]
-[b][u]v1.4 - September 30th, 2014[/u][/b]
-o Fixed several bugs in code involving removing buttons from bbcodes....
-o Added code to preserve the bbcode description within the database.
-o Added code to remove bbcode button image from server upon deleting bbcode.
+The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=7.msg132#msg132]XPtsp.com[/url].
 
-[b][u]v1.3 - September 29th, 2014[/u][/b]
-o Fixed bug that made empty bbcode entries when attempting to disable/enable bbcodes...
-o Removed equal sign from bbcode in editor...
+[color=blue][b][size=12pt][u]License[/u][/size][/b][/color]
+Copyright (c) 2015, Douglas Orend
+All rights reserved.
 
-[b][u]v1.2 - September 29th, 2014[/u][/b]
-o Added code so that "parsed content" tags are recognized properly by BBcode parser.
-o Fixed bug so that Custom BBCode UI properly displays HTML that the bbcode will use.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
-[b][u]v1.1 - September 29th, 2014[/u][/b]
-o Fixed bugs that corrupted BBcode HTML codes upon modifying the BBcode.
-o Fixed typo relating to BBCode usage in the Custom BBCodes UI page.
-o Added English UTF8 language file.
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
 
-[b][u]v1.0 - September 13th, 2014[/u][/b]
-o Initial Release
-[/quote]
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
-[hr]
-[url=http://creativecommons.org/licenses/by/3.0][img]http://i.creativecommons.org/l/by/3.0/80x15.png[/img][/url]
-This work is licensed under a [url=http://creativecommons.org/licenses/by/3.0]Creative Commons Attribution 3.0 Unported License[/url]
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

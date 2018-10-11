@@ -289,17 +289,17 @@ function get_max_bbcode_id()
 *********************************************************************************/
 function bbcode_exists($tag, $id)
 {
-	global $smcFunc, $test_tag;
+	global $smcFunc;
 	isAllowedTo('admin_forum');
 
 	// Is this bbcode is already defined by SMF itself or another mod?
-	$test_tag = $tag;
-	remove_integration_function('integrate_bbc_codes', 'CustomBBCodes_BBCodes');
-	add_integration_function('integrate_bbc_codes', 'bbcode_test');
-	$data = parse_bbc('[b]' . $tag . '[/b]');
-	remove_integration_function('integrate_bbc_codes', 'bbcode_test');
-	add_integration_function('integrate_bbc_codes', 'CustomBBCodes_BBCodes');
-	if ($test_tag === true)
+	$temp = parse_bbc(false);
+	$bbcTags = array();
+	foreach ($temp as $tag)
+		$bbcTags[] = $tag['tag'];
+	$bbcTags = array_unique($bbcTags);
+	$totalTags = count($bbcTags);
+	if (in_array($tag['tag'], $bbcTags))
 		return true;
 
 	// Okay, we got here.  Is this bbcode defined by using this mod?
@@ -317,20 +317,6 @@ function bbcode_exists($tag, $id)
 	$row = $smcFunc['db_fetch_assoc']($request);
 	$smcFunc['db_free_result']($request);
 	return !empty($row);
-}
-
-function bbcode_test(&$codes)
-{
-	global $test_tag;
-	isAllowedTo('admin_forum');
-	foreach ($codes as $bbcode)
-	{
-		if ($bbcode['tag'] == $test_tag)
-		{
-			$test_tag = true;
-			return;
-		}
-	}
 }
 
 ?>
