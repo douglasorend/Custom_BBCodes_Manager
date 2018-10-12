@@ -187,7 +187,7 @@ function CustomBBCodes_Edit($tag)
 		if (isset($_POST['remove']))
 		{
 			// Removing button?
-			remove_gif_from_themes($row['tag']);
+			remove_image_from_themes($row['tag']);
 			update_bbc_tag($tag, array(
 				'button' => 0,
 			));
@@ -195,7 +195,7 @@ function CustomBBCodes_Edit($tag)
 		else
 		{
 			// Not removing button...  Must be adding one.
-			copy_gif_to_themes($row['tag']);
+			copy_image_to_themes($row['tag']);
 			update_bbc_tag($tag, array(
 				'button' => 1,
 			));

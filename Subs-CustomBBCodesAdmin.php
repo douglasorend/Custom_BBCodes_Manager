@@ -217,15 +217,23 @@ function replace_tag($data)
 	cache_put_data('bbcodes_buttons', null, 86400);
 }
 
-function copy_gif_to_themes($tag)
+function copy_image_to_themes($tag)
 {
-	global $smcFunc, $boarddir, $modSettings;
+	global $smcFunc, $boarddir, $modSettings, $forum_version;
 	isAllowedTo('admin_forum');
 
 	// Make sure this is actually a GIF file is that less than 10kb:
 	$extension = pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-	if ($_FILES["file"]["type"] != "image/gif" || $_FILES["file"]["size"] > 10240 || $extension != 'gif')
-		fatal_lang_error('Edit_Upload_invalid_upload', false);
+	if (substr($forum_version, 0, 7) == 'SMF 2.1')
+	{
+		if ($_FILES["file"]["type"] != "image/gif" || $_FILES["file"]["size"] > 10240 || $extension != 'gif')
+			fatal_lang_error('Edit_20_Upload_invalid_upload', false);
+	}
+	else
+	{
+		if ($_FILES["file"]["type"] != "image/png" || $_FILES["file"]["size"] > 10240 || $extension != 'png')
+			fatal_lang_error('Edit_21_Upload_invalid_upload', false);
+	}
 	if ($_FILES["file"]["error"] > 0)
 		fatal_lang_error('Edit_Upload_error', false);
 
@@ -248,7 +256,7 @@ function copy_gif_to_themes($tag)
 	$smcFunc['db_free_result']($request);
 }
 
-function remove_gif_from_themes($tag)
+function remove_image_from_themes($tag)
 {
 	global $smcFunc, $boarddir, $modSettings;
 	isAllowedTo('admin_forum');

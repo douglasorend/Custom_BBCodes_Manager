@@ -1,3 +1,6 @@
+v1.11 - May 1st, 2015
+o Modified code to correctly reflect custom bbcode icon requirements for SMF 2.1.
+
 v1.10 - April 28th, 2015
 o Added online version check to the Custom BBCode settings page.
 o Readded install operations for SMF 2.1 so that Custom BBCode area shows up.

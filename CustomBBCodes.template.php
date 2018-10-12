@@ -25,7 +25,7 @@ function template_CustomBBCode_Browse()
 
 function template_CustomBBCode_Edit()
 {
-	global $txt, $context;
+	global $txt, $context, $forum_version;
 
 	$tag = $context['this_BBC'];
 	echo '
@@ -118,7 +118,7 @@ function template_CustomBBCode_Edit()
 				<div class="content">
 					<form action="', $context['post_url'], ';upload" method="post" enctype="multipart/form-data" accept-charset="', $context['character_set'], '">';
 	echo '
-						<p>', $txt['Edit_Upload_description'], '</p>
+						<p>', (substr($forum_version, 0, 7) == 'SMF 2.1' ? $txt['Edit_21_Upload_description'] : $txt['Edit_20_Upload_description']), '</p>
 						<br class="brcolor clear" />
 						<dl class="settings">
 							<dt>', $txt['Edit_Filename'], '</dt>
