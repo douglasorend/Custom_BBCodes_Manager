@@ -1,5 +1,5 @@
 [hr]
-[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.7[/b][/size][/color]
+[center][color=red][size=16pt][b]CUSTOM BBCODE MANAGER v1.8[/b][/size][/color]
 [url=http://www.simplemachines.org/community/index.php?action=profile;u=253913][b]By Dougiefresh[/b][/url] -> [url=http://custom.simplemachines.org/mods/index.php?mod=3699]Link to Mod[/url]
 [/center]
 [hr]
@@ -15,7 +15,7 @@ o [b][i]Admin[/i] -> [i]Configuration[/i] -> [i]Features and Options[/i] -> [i]C
 To add a custom tag, click the "Create New Tag".  Once you submit the tag, you can go back and upload a button for it.  The image should be 23 x 22 GIF with transparent background and no larger than 10kb.
 
 [color=blue][b][size=12pt][u]Compatibility Notes[/u][/size][/b][/color]
-This mod was tested on SMF 2.0.8 and should work on SMF v2.0 and above versions.  SMF 1.x is not and will not be supported by this mod.
+This mod was tested on SMF 2.0.9, but should work on SMF 2.1 Beta 1, as well as SMF 2.0 and up.  SMF 1.x is not and will not be supported.
 
 [color=blue][b][size=12pt][u]Changelog[/u][/size][/b][/color]
 The changelog has been removed and can be seen at [url=http://www.xptsp.com/board/index.php?topic=7.msg132#msg132]XPtsp.com[/url].

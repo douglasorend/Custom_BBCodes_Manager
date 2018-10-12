@@ -29,8 +29,13 @@ function CustomBBCodes_Admin(&$admin_areas)
 		}
 		$admin_areas['config']['areas']['featuresettings']['subsections'] = $rebuild;
 	}
-	if (($_GET['area'] == 'featuresettings' || $_GET['area'] == 'postsettings') && (isset($_GET['sa']) && $_GET['sa'] == 'custombbc'))
+	if ((isset($_REQUEST['area']) && ($_REQUEST['area'] == 'featuresettings' || $_REQUEST['area'] == 'postsettings')) && (isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'custombbc'))
 		require_once($sourcedir . '/CustomBBCodes.php');
+}
+
+function Add_CustomBBCCodes(&$subActions)
+{
+	$subActions['custombbc'] = 'CustomBBCodes_Browse';
 }
 
 function CustomBBCodes_BBCodes(&$codes)

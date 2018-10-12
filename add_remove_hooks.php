@@ -24,6 +24,7 @@ $hook_functions = array(
 	'integrate_bbc_codes' => 'CustomBBCodes_BBCodes',
 	'integrate_bbc_buttons' => 'CustomBBCodes_Buttons',
 	'integrate_admin_areas' => 'CustomBBCodes_Admin',
+	'integrate_modify_features' => 'Add_CustomBBCCodes',
 );
 
 // Adding or removing them?
