@@ -66,6 +66,10 @@ $columns = array(
 		'name' => 'content',
 		'type' => 'text',
 	),
+	array(
+		'name' => 'css',
+		'type' => 'text',
+	),
 );
 $indexes = array(
 	array(

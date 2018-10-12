@@ -17,6 +17,7 @@ if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('SMF'))
 	require_once(dirname(__FILE__) . '/SSI.php');
 elseif (!defined('SMF')) // If we are outside SMF and can't find SSI.php, then throw an error
 	die('<b>Error:</b> Cannot install - please verify you put this file in the same place as SMF\'s SSI.php.');
+require_once($sourcedir.'/Subs-Admin.php');
 
 // Attach some other crap for subforums to prevent 404 errors:
 global $boarddir;
@@ -44,6 +45,14 @@ while ($row = $smcFunc['db_fetch_assoc']($request))
 	}
 }
 $smcFunc['db_free_result']($request);
+
+// Note if the "bbc_bg" image can be read using the new htaccess rewrite rule:
+$size = false;
+if (file_exists($boarddir . '/Themes/default/images/bbc/bbc_bg.gif'))
+	$size = @getimagesize($boardurl . '/Themes/default/images/bbc/bbc_bg_1.gif');
+elseif (file_exists($boarddir . '/Themes/default/images/bbc/bbc_bg.png'))
+	$size = @getimagesize($boardurl . '/Themes/default/images/bbc/bbc_bg_1.png');
+updateSettings(array('CBBC_htaccess' => !empty($size)));
 
 // Echo that we are done if necessary:
 if (SMF == 'SSI')

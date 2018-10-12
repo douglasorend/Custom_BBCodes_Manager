@@ -31,7 +31,7 @@ $txt['List_Status'] = 'Estado';
 
 // All strings used in the Edit Custom BBCode template:
 $txt['Edit_title'] = 'Ajustes BBCode personalizada';
-$txt['Edit_name'] = 'BBCode';
+$txt['Edit_name'] = 'Nombre de la etiqueta';
 $txt['Edit_description'] = $txt['List_description'];
 $txt['Edit_type'] = 'Tipo de etiqueta';
 $txt['Edit_tag'] = 'Etiqueta';
@@ -93,5 +93,8 @@ $txt['Edit_width_error'] = 'Su botón fue rechazada porque no es %d píxeles de 
 $txt['Edit_height_error'] = 'Su botón fue rechazada porque no es %d píxeles de altura.';
 $txt['Edit_single_content_error'] = 'Usted tiene más de una {content} marcador en su reemplazo HTML.\nEl analizador única sustituirá a la {content} marcador de una vez, debido a la forma en que se construyó el analizador.\n\n¿Continuar?';
 $txt['Edit_no_content_error'] = 'Usted tiene por lo menos una {content} marcador en su reemplazo HTML.\nEl analizador no reemplazará a la {content} marcador, debido a la forma en que se construyó el analizador.\n\n¿Continuar?';
+
+// Permission Names:
+//$txt['permissionname_manage_custom_bbcodes'] = 'Can Manage Custom BBCodes';
 
 ?>

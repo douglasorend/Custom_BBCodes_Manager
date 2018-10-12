@@ -278,6 +278,7 @@ function CustomBBCodes_Edit($tag, $err = false)
 		)),
 		'b' => array('text', 'Edit_tag_format', 'size' => 60, 'javascript' => ' disabled="disabled"'),
 		array('large_text', 'Edit_html', 'force_div_id' => 'htmlDiv'),
+		array('large_text', 'Edit_css', 'force_div_id' => 'cssDiv'),
 		920 => '',
 		'c' => array('check', 'Edit_block_level'),
 		'd' => array('select', 'Edit_trim', array(
@@ -337,6 +338,7 @@ function CustomBBCode_Save($tag)
 		'button' => (isset($_POST['Edit_show_button']) ? $_POST['Edit_show_button'] : 0),
 		'description' => (isset($_POST['Edit_description']) ? $_POST['Edit_description'] : ''),
 		'accept_urls' => (isset($_POST['Edit_accept_urls']) ? $_POST['Edit_accept_urls'] : 0),
+		'css' => (isset($_POST['Edit_css']) ? $_POST['Edit_css'] : ''),
 	);
 
 	// Make sure that the bbcode doesn't exist.  If it does, error out....

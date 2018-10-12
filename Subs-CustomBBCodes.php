@@ -66,7 +66,10 @@ function CustomBBCodes_BBCodes(&$codes)
 
 			// If the "accept_urls" option is checked, add a validation function:
 			if (!empty($row['accept_urls']))
-				$row['validate'] = 'CustomBBCodes_URL_Validate';
+				$row['vfunc'][] = 'CustomBBCodes_URL';
+			if (!empty($row['css']))
+				$row['vfunc'][] = 'CustomBBCodes_CSS';
+			$row['validate'] = 'CustomBBCodes_Validate';
 
 			// Add the new BBCode to the array:
 			$bbcodes[] = $row;
@@ -79,11 +82,32 @@ function CustomBBCodes_BBCodes(&$codes)
 	$codes = array_merge($codes, $bbcodes);
 }
 
-function CustomBBCodes_URL_Validate(&$tag, &$data, &$disabled)
+function CustomBBCodes_Validate(&$tag, &$data, &$disabled)
+{
+	if (!empty($tag['vfunc']))
+		return;
+	foreach ($tag['vfunc'] as $func)
+		$func($tag, $data, $disabled);
+}
+
+function CustomBBCodes_URL(&$tag, &$data, &$disabled)
 {
 	$data = strtr($data, array('<br>' => ''));
 	if (strpos($data, 'http://') !== 0 && strpos($data, 'https://') !== 0)
 		$data = 'http://' . $data;
+}
+
+function CustomBBCodes_CSS(&$tag, &$data, &$disabled)
+{
+	static $css_inserted = array();
+	if (isset($css_inserted[$tag['name'] . '_' . $tag['ctype']]))
+	{
+		$css_inserted[$tag['name'] . '_' . $tag['ctype']] = true;
+		if (isset($tag['content']))
+			$tag['content'] = '<style>' . $tag['css'] . '</style>' . $tag['content'];
+		else
+			$tag['before'] = '<style>' . $tag['css'] . '</style>' . $tag['before'];
+	}
 }
 
 /**********************************************************************************
@@ -91,7 +115,7 @@ function CustomBBCodes_URL_Validate(&$tag, &$data, &$disabled)
 **********************************************************************************/
 function CustomBBCodes_Buttons(&$buttons)
 {
-	global $smcFunc, $forum_version, $boarddir;
+	global $smcFunc, $forum_version, $boarddir, $modSettings;
 
 	if (($cached = cache_get_data('bbcodes_buttons', 86400)) == null)
 	{
@@ -118,7 +142,7 @@ function CustomBBCodes_Buttons(&$buttons)
 	
 			// Process the bbcode button tag:
 			$tmp = array(
-				'image' => $tag . '_' . $row['last_update'],
+				'image' => $tag . (!empty($modSettings['CBBC_htaccess']) ? '_' . $row['last_update'] : ''),
 				'code' => $tag,
 				'description' => stripslashes(empty($row['description']) ? $tag : $row['description']),
 			);

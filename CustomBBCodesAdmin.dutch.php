@@ -31,7 +31,7 @@ $txt['List_delete_bbcode'] = 'weet U zeker dat U deze BBCode wilt verwijderen?';
 
 // All strings used in the Edit Custom BBCode template:
 $txt['Edit_title'] = 'Eigen BBCode Instellingen';
-$txt['Edit_name'] = 'BBCode';
+$txt['Edit_name'] = 'Tag Naam';
 $txt['Edit_description'] = $txt['List_description'];
 $txt['Edit_type'] = 'Tag tiepe';
 $txt['Edit_tag'] = 'tag';
@@ -93,5 +93,8 @@ $txt['unparsed_equals_content'] = 'Ongeparseerde Gelijken Inhoud';
 //$txt['Edit_height_error'] = 'Your button was rejected because it is not %d pixels in height.';
 //$txt['Edit_single_content_error'] = 'You have more than one {content} marker in your replacement HTML.\nThe parser will only replace the {content} marker once, due to how the parser is built.\n\nContinue?';
 //$txt['Edit_no_content_error'] = 'You have at least one {content} marker in your replacement HTML.\nThe parser will not replace the {content} marker, due to how the parser is built.\n\nContinue?';
+
+// Permission Names:
+//$txt['permissionname_manage_custom_bbcodes'] = 'Can Manage Custom BBCodes';
 
 ?>?>
