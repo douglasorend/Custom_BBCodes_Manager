@@ -206,6 +206,7 @@ function CBBC_replace_tag($data)
 			'description' => 'text',
 			'last_update' => 'int',
 			'accept_urls' => 'int',
+			'css' => 'text',
 		),
 		array(
 			(int) $data['id'],
@@ -221,6 +222,7 @@ function CBBC_replace_tag($data)
 			isset($data['description']) ? addslashes($data['description']) : '',
 			$time = time(),
 			(int) isset($data['accept_urls']) ? $data['accept_urls'] : 0,
+			isset($data['css']) ? addslashes($data['css']) : '',
 		),
 		array('id')
 	);
@@ -350,12 +352,13 @@ function CBBC_bbcode_exists($tag)
 	$temp = parse_bbc(false);
 	// OLD CODE => add_integration_function('integrate_bbc_codes', 'CustomBBCodes_BBCodes');
 	$modSettings['integrate_bbc_codes'] = $old;
+	$tag = strtolower($tag);
 	$tags = array();
 	foreach ($temp as $tagname)
-		$tags[] = $tagname['tag'];
-	$tags = array_unique($tags);
-	if (in_array(strtolower($tag), $tags))
-		return true;
+	{
+		if ($tagname['tag'] == $tag)
+			return true;
+	}
 }
 
 /**********************************************************************************
