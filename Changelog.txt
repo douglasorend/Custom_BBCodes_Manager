@@ -1,3 +1,6 @@
+v2.4 - August 7th, 2017
+o Fixed [b]edit_db.php[/b] so that database creation can occur.
+
 v2.3 - December 10th, 2016
 o Added some code to add timestamp [b]ONLY[/b] if htaccess rewrite rule actually works....
 o Fixed undefined index error regarding permission name found in Permissions area.

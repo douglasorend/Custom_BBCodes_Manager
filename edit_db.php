@@ -6,7 +6,6 @@ elseif (!defined('SMF'))
 
 if ((SMF == 'SSI') && !$user_info['is_admin'])
    die('Admin priveleges required.');
-require($sourcedir.'/Subs-Admin.php');
 db_extend('packages');
 
 // Build the bbcodes table:
@@ -78,20 +77,6 @@ $indexes = array(
 	),
 );
 $smcFunc['db_create_table']('{db_prefix}bbcodes', $columns, $indexes, array(), 'update_remove');
-
-// Upgrades don't add the columns we added for v2.0.  Add them in seperate statements:
-$smcFunc['db_add_column']('{db_prefix}bbcodes', array(
-	'name' => 'last_update',
-	'type' => 'int',
-	'size' => 8,
-	'unsigned' => true,
-));
-$smcFunc['db_add_column']('{db_prefix}bbcodes', array(
-	'name' => 'accept_urls',
-	'type' => 'int',
-	'size' => 2,
-	'unsigned' => true,
-));
 
 // Force all tags to be lowercase.  It's important for some reason! :p
 $smcFunc['db_query']('', '
