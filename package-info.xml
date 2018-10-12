@@ -5,7 +5,7 @@
 	<id>dougiefresh:CustomBBCodes</id>
 	<name>Custom BBCodes Manager</name>
 	<type>modification</type>
-	<version>2.1</version>
+	<version>2.2</version>
 	
 	<install for="2.0 - 2.0.99">
 		<readme type="file" parsebbc="true">readme.txt</readme>
@@ -14,11 +14,15 @@
 		<database>edit_db.php</database>
 		<modification>install_20x.xml</modification>
 		<modification>language_english.xml</modification>
+		<modification>language_spanish_latin.xml</modification>
+		<modification>language_spanish_latin-utf8.xml</modification>
 		<require-file name="CustomBBCodesAdmin.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodesAdmin.english.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="CustomBBCodesAdmin.english-utf8.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="CustomBBCodesAdmin.dutch.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="CustomBBCodesAdmin.dutch-utf8.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodesAdmin.spanish_latin.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodesAdmin.spanish_latin-utf8.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="Subs-CustomBBCodes.php" destination="$sourcedir" />
 		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodesAdmin.template.php" destination="$boarddir/Themes/default" />
@@ -29,6 +33,8 @@
 		<code>settings_uninstall.php</code>
 		<modification reverse="true">install_20x.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
+		<modification reverse="true">language_spanish_latin.xml</modification>
+		<modification reverse="true">language_spanish_latin-utf8.xml</modification>
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodesAdmin.english.php" />
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodesAdmin.english-utf8.php" />
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodesAdmin.dutch.php" />
@@ -46,11 +52,15 @@
 		<database>edit_db.php</database>
 		<modification>install_21x.xml</modification>
 		<modification>language_english.xml</modification>
+		<modification>language_spanish_latin.xml</modification>
+		<modification>language_spanish_latin-utf8.xml</modification>
 		<require-file name="CustomBBCodesAdmin.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodesAdmin.english.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="CustomBBCodesAdmin.english-utf8.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="CustomBBCodesAdmin.dutch.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="CustomBBCodesAdmin.dutch-utf8.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodesAdmin.spanish_latin.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodesAdmin.spanish_latin-utf8.php" destination="$boarddir/Themes/default/languages" />
 		<require-file name="Subs-CustomBBCodes.php" destination="$sourcedir" />
 		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodesAdmin.template.php" destination="$boarddir/Themes/default" />
@@ -61,6 +71,8 @@
 		<code>settings_uninstall.php</code>
 		<modification reverse="true">install_21x.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
+		<modification reverse="true">language_spanish_latin.xml</modification>
+		<modification reverse="true">language_spanish_latin-utf8.xml</modification>
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodesAdmin.english.php" />
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodesAdmin.english-utf8.php" />
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodesAdmin.dutch.php" />

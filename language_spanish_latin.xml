@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>dougiefresh:CustomBBCodes</id>
+<name>Custom BBCodes Manager</name>
+<version>2.2</version>
+
+<file name="$languagedir/index.spanish_latin.php" error="skip" >
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['debug_hide'] = 'Ocultar';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/Help.spanish_latin.php" error="skip" >
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+// START: Custom BBCode Manager
+$helptxt['Edit_name'] = 'Este es el nombre de la etiqueta. Si ha utilizado <strong>blegh</strong> como la etiqueta y <strong>{content}</strong> siendo lo es entre las etiquetas, entonces la siguiente forma ser&iacute;a v&aacute;lida:
+	<blockquote class="bbc_standard_quote">
+		[blegh]{content}[/blegh]
+	</blockquote>';
+$helptxt['Edit_description'] = 'Esta descripci&oacute;n es lo que se mostrar&aacute; al usuario cuando el usuario pasa el rat&oacute;n sobre la imagen del bot&oacute;n. Una imagen de bot&oacute;n se debe incluir para esta descripci&oacute;n en aparecer.';
+$helptxt['Edit_type'] = '<div class="cat_bar"><h3 class="catbg">Tipos de bbcodes soportadas:</h3></div>
+	Tenga en cuenta estos tipos de etiquetas son definidos por la <strong>parse_bbc</strong> funci&oacute;n. No tengo ning&uacute;n control sobre la forma en que se nombran y no voy a cambiar.<hr />' . 
+	CBBC_Spoiler('Closed - [tag], [tag/], [tag /]', '
+		La etiqueta cerrada se sustituye por la cadena de reemplazo HTML.
+		<blockquote class="bbc_standard_quote">
+			[tag]
+		</blockquote>') .
+	CBBC_Spoiler('Parsed Content - [tag]parsed content[/tag]', '
+		Solo uno <strong>{content}</strong> marcador est&aacute; permitida por este tipo.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag]<strong>{content}</strong>[/tag]
+		</blockquote>
+		La cadena de reemplazo HTML est&aacute; dividido internamente en dos partes: <strong>antes de</strong> y <strong>después</strong>, ambos de los cuales rodean la <strong>{content}</strong> etiqueta. Los contenidos de <strong>{content}</strong> e analiza m&aacute;s por lo que se permite el uso de cualquier c&oacute;digo BBC dentro de la etiqueta.') .
+	CBBC_Spoiler('Unparsed Content - [tag]unparsed content[/tag]', '
+		Solo uno <strong>{content}</strong> marcador est&aacute; permitida por este tipo.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag]<strong>{content}</strong>[/tag]
+		</blockquote>
+		La cadena de reemplazo HTML está dividido internamente en dos partes: <strong>antes de</strong> y <strong>después</strong>, ambos de los cuales rodean la <strong>{content}</strong> etiqueta, que no es parsed.') .
+	CBBC_Spoiler('Parsed Equals - [tag=parsed data]parsed content[/tag]', '
+		<strong><u>Supported markers:</u></strong><br />
+		<strong>{content}</strong> - Only one is permitted by this type.<br />
+		<strong>{option1}</strong> or <strong>$1</strong> - Parsed datos que siguen al signo igual.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>]<strong>{content}</strong>[/tag]
+		</blockquote>
+		La cadena de reemplazo HTML est&aacute; dividido internamente en dos partes: <strong>antes de</strong> y <strong>después</strong>, ambos de los cuales rodean la <strong>{content}</strong> etiqueta. Los contenidos de <strong>{content}</strong>se analiza m&aacute;s por lo que se permite el uso de cualquier c&oacute;digo BBC dentro de la etiqueta.') .
+	CBBC_Spoiler('Unparsed Equals - [tag=xyz]parsed content[/tag]', '
+		<strong><u>marcadores soportados:</u></strong><br />
+		<strong>{content}</strong> - s&oacute;lo una est&aacute; permitido por este tipo.<br />
+		<strong>{option1}</strong> o <strong>$1</strong> - Unparsed datos que siguen al signo igual.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>]<strong>{content}</strong>[/tag]
+		</blockquote>
+		La cadena de reemplazo HTML est&aacute; dividido internamente en dos partes: <strong>antes de</strong> y <strong>después</strong>, ambos de los cuales rodean la <strong>{content}</strong> etiqueta, que no parsed.') .
+	CBBC_Spoiler('Unparsed Commas - [tag=1,2,3]parsed content[/tag]', '
+		<strong><u>marcadores soportados:</u></strong><br />
+		<strong>{content}</strong> - Se puede utilizar tantas veces como sea necesario.<br/>
+		<strong>{option[x]}</strong> o <strong>$[x+1]</strong> - Los par&aacute;metros siguientes del signo igual, donde <strong>[x]</strong> es el n&uacute;mero de par&aacute;metros del 1 al 8 (aka:rojo <strong>{option8}</strong>).<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>(,<strong>{option2}</strong>(,....))]<strong>{content}</strong>[/tag]
+		</blockquote>
+		The <strong>{content}</strong> marcador se sustituye con datos de usuario analizados suministrado dentro de la cadena de reemplazo HTML.  La <strong>{option[x]}</strong> Los marcadores son reemplazados con los datos csv no analizadas dentro de la cadena de reemplazo HTML.') .
+	CBBC_Spoiler('Unparsed Commas Content - [tag=1,2,3]unparsed content[/tag]', '
+		<strong><u>marcadores soportados:</u></strong><br />
+		<strong>{content}</strong> - Se puede utilizar tantas veces como sea necesario.<br/>
+		<strong>{option[x]}</strong> o <strong>$[x+1]</strong> - Los par&aacute;metros siguientes del signo igual, donde <strong>[x]</strong> es el n&uacute;mero de par&aacute;metros 1-8 (aka: <strong>{option8}</strong>).<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>(,<strong>{option2}</strong>(,....))]<strong>{content}</strong>[/tag]
+		</blockquote>
+		<strong>{content}</strong> y todo <strong>{option[x]}</strong> etiquetas se reemplazan con los datos suministrados por el usuario no analizadas dentro de la cadena de reemplazo HTML.') .
+	CBBC_Spoiler('Unparsed Equals Content - [tag=...]unparsed content[/tag]', '
+		<strong><u>marcadores soportados:</u></strong><br />
+		<strong>{content}</strong> - Se puede utilizar tantas veces como sea necesario.<br/>
+		<strong>{option[x]}</strong> o <strong>$[x+1]</strong> - Los par&aacute;metros siguientes del signo igual, donde <strong>[x]</strong> es el n&uacute;mero de par&aacute;metros 1-8 (aka: <strong>{option8}</strong>).<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>(,<strong>{option2}</strong>(,....))]<strong>{content}</strong>[/tag]
+		</blockquote>
+		<strong>{content}</strong> y todo <strong>{option[x]}</strong> etiquetas se reemplazan con los datos suministrados por el usuario no analizadas dentro de la cadena de reemplazo HTML');
+$helptxt['Edit_tag_format'] = 'Este campo muestra la forma en que utilizar&aacute; su nueva etiqueta BBCode.';
+$helptxt['Edit_trim'] = 'Opciones Disponibles:<br />
+	<blockquote class="bbc_standard_quote">
+		<strong>inside</strong> - El espacio en blanco después de la etiqueta comenzar ser&aacute; eliminado.<br />
+		<strong>outside</strong> - El espacio en blanco después de la etiqueta final ser&aacute; reemplazado.<br />
+		<strong>both</strong> - Se quitar&aacute; espacio en blanco después de la etiqueta de inicio y finalizaci&oacute;n.
+	</blockquote>';
+$helptxt['Edit_block_level'] = 'Cuando se activa, la etiqueta es un &quot;nivel y bloque&quot; etiqueta, similar al HTML.<br /><br />
+	Etiquetas de nivel de bloque no se pueden anidar dentro de las etiquetas que no est&aacute;n a nivel de bloque, y no se cerrar&aacute;n de forma impl&iacute;cita con la misma facilidad.
+	Un descanso después de una etiqueta de nivel de bloque también se puede retirar.';
+$helptxt['Edit_html'] = 'Edici&oacute;n de HTML';
+$helptxt['Edit_button_filename'] = 'Editar Nombre del bot&oacute;n';
+$helptxt['Edit_show_button'] = 'La activaci&oacute;n de esta opci&oacute;n hace que el bot&oacute;n que ha cargado visible en la pantalla Post.';
+$helptxt['Edit_accept_urls'] = 'Al activar esta opci&oacute;n añade una funci&oacute;n de validaci&oacute;n que asegura que la direcci&oacute;n URL pasa como <strong>{content}</strong> comienza ya sea con una <strong>http://</strong> o una <strong>https://</strong>.  Si ninguno est&aacute; presente en el inicio del contenido, una <strong>http://</strong>se añadir&aacute; a la URL.';
+// END: Custom BBCode Manager
+
+]]></add>
+	</operation>
+</file>
+</modification>
