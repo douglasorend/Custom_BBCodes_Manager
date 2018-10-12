@@ -11,7 +11,7 @@ if (!defined('SMF'))
 
 function CustomBBCodes_Browse()
 {
-	global $txt, $scripturl, $sourcedir, $context;
+	global $modSettings, $txt, $scripturl, $sourcedir, $context;
 
 	// Load some basic stuff related to both the CustomBBCode edit and browse functions:
 	isAllowedTo('admin_forum');
@@ -54,6 +54,20 @@ function CustomBBCodes_Browse()
 			'enabled' => 0,
 		));
 		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc');
+	}
+
+	// Get latest version of the mod and display whether current mod is up-to-date:
+	if (($file = cache_get_data('ila_mod_version', 86400)) == null)
+	{
+		$file = file_get_contents('http://www.xptsp.com/tools/mod_version.php?url=Custom_BBCodes_Manager');
+		cache_put_data('ila_mod_version', $file, 86400);
+	}
+	if (preg_match('#Custom_BBCodes_Manager_v(.+?)\.zip#i', $file, $version))
+	{
+		if (isset($modSettings['ila_version']) && $version[1] > $modSettings['ila_version'])
+			$context['settings_message'] = '<strong>' . sprintf($txt['bbc_no_update'], $version[1]) . '</strong>';
+		else
+			$context['settings_message'] = '<strong>' . $txt['bbc_no_update'] . '</strong>';
 	}
 
 	// Build the array required for "createList" function:

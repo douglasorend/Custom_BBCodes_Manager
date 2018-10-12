@@ -13,6 +13,9 @@ function template_CustomBBCode_Browse()
 {
 	global $txt, $context, $scripturl;
 
+	if (!empty($context['settings_message']))
+		echo '
+		<div class="information">', $context['settings_message'], '</div>';
 	template_show_list('list_bbc');
 	echo '
 		<form action="', $scripturl, '?action=admin;area=', $_GET['area'], ';sa=custombbc;edit=-1;sesc=' , $context['session_id'] , '"" name="restore" method="post" accept-charset="', $context['character_set'], '">

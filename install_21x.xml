@@ -8,14 +8,6 @@
 <!-------------------------------------------------------------------------->
 <!-- Custom BBCode Manager UI (ManageBoards.php)                            -->
 <!-------------------------------------------------------------------------->
-<file name="$sourcedir/ManagePosts.php">
-	<operation>
-		<search position="before"><![CDATA[		'bbc' => 'ModifyBBCSettings',
-]]></search>
-		<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
-]]></add>
-	</operation>
-</file>
 <file name="$sourcedir/ManageSettings.php">
 	<operation>
 		<search position="before"><![CDATA[		'layout' => 'ModifyLayoutSettings',

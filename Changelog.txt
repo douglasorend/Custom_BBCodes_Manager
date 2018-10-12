@@ -1,3 +1,7 @@
+v1.10 - April 28th, 2015
+o Added online version check to the Custom BBCode settings page.
+o Readded install operations for SMF 2.1 so that Custom BBCode area shows up.
+
 v1.9 - April 24th, 2015
 o Fixed package-info.xml so that it refers to the install_20x.xml file, not install.xml.
 

@@ -66,4 +66,8 @@ $txt['unparsed_commas'] = 'Unparsed Commas';
 $txt['unparsed_commas_content'] = 'Unparsed Commas Content';
 $txt['unparsed_equals_content'] = 'Unparsed Equals Content';
 
+// Version update information:
+$txt['bbc_new_version'] = 'Custom BBCode Manager mod version %s is available for download!';
+$txt['bbc_no_update'] = 'Your install of Custom BBCode Manager is up to date!';
+
 ?>

@@ -5,7 +5,7 @@
 	<id>dougiefresh:CustomBBCodes</id>
 	<name>Custom BBCodes Manager</name>
 	<type>modification</type>
-	<version>1.9</version>
+	<version>1.10</version>
 	
 	<install for="2.0 - 2.0.99">
 		<readme type="file" parsebbc="true">readme.txt</readme>
@@ -41,6 +41,7 @@
 		<readme type="file" parsebbc="true">readme.txt</readme>
 		<code>add_remove_hooks.php</code>
 		<database>edit_db.php</database>
+		<modification>install_21x.xml</modification>
 		<modification>language_english.xml</modification>
 		<require-file name="CustomBBCodes.php" destination="$sourcedir" />
 		<require-file name="CustomBBCodes.english.php" destination="$boarddir/Themes/default/languages" />
@@ -54,6 +55,7 @@
 	</install>
 	<uninstall for="2.1 Beta 1">
 		<code>add_remove_hooks.php</code>
+		<modification reverse="true">install_21x.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english.php" />
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english-utf8.php" />
