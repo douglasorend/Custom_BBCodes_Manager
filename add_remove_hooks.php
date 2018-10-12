@@ -2,11 +2,10 @@
 /**********************************************************************************
 * add_remove_hooks.php                                                            *
 ***********************************************************************************
-***********************************************************************************
 * This program is distributed in the hope that it is and will be useful, but      *
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY    *
 * or FITNESS FOR A PARTICULAR PURPOSE.                                            *
-*                                                                                 *
+***********************************************************************************
 * This file is a simplified database installer. It does what it is suppoed to.    *
 **********************************************************************************/
 
@@ -20,11 +19,17 @@ if (SMF == 'SSI')
 	
 // Define the hooks
 $hook_functions = array(
+// SMF 2.x hooks:
 	'integrate_pre_include' => '$sourcedir/Subs-CustomBBCodes.php',
 	'integrate_bbc_codes' => 'CustomBBCodes_BBCodes',
 	'integrate_bbc_buttons' => 'CustomBBCodes_Buttons',
+	'integrate_load_permissions' => 'CustomBBCodes_Permissions',
+	'integrate_load_theme' => 'CustomBBCodes_LoadTheme',
+// SMF 2.x Admin hooks:
+	'integrate_admin_include' => '$sourcedir/CustomBBCodesAdmin.php',
 	'integrate_admin_areas' => 'CustomBBCodes_Admin',
-	'integrate_modify_features' => 'Add_CustomBBCCodes',
+// SMF 2.1 Admin hooks:
+	'integrate_modify_features' => 'CustomBBCodes_Modify_Features',
 );
 
 // Adding or removing them?

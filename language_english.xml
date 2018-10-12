@@ -3,51 +3,100 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>dougiefresh:CustomBBCodes</id>
 <name>Custom BBCodes Manager</name>
-<version>1.12</version>
+<version>2.0</version>
 
-<!-------------------------------------------------------------------------->
-<!-- Language String modification (Admin.[language].php)                  -->
-<!-------------------------------------------------------------------------->
-<file name="$languagedir/Admin.english.php">
+<file name="$languagedir/index.english.php">
 	<operation>
-		<search position="after"><![CDATA[
-?>]]></search>
+		<search position="end" />
 		<add><![CDATA[
-// Added for Custom BBCode Manager
-$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
-
+$txt['debug_hide'] = 'hide';
 ]]></add>
 	</operation>
 </file>
-<file name="$languagedir/Admin.english-utf8.php" error="skip">
+<file name="$languagedir/Help.english.php">
 	<operation>
-		<search position="after"><![CDATA[
-?>]]></search>
+		<search position="end" />
 		<add><![CDATA[
-// Added for Custom BBCode Manager
-$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
-
-]]></add>
-	</operation>
-</file>
-<file name="$languagedir/Admin.english-british.php" error="skip">
-	<operation>
-		<search position="after"><![CDATA[
-?>]]></search>
-		<add><![CDATA[
-// Added for Custom BBCode Manager
-$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
-
-]]></add>
-	</operation>
-</file>
-<file name="$languagedir/Admin.english-british-utf8.php" error="skip">
-	<operation>
-		<search position="after"><![CDATA[
-?>]]></search>
-		<add><![CDATA[
-// Added for Custom BBCode Manager
-$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
+// START: Custom BBCode Manager
+$helptxt['Edit_name'] = 'This is the name of the tag.  If you used <strong>blegh</strong> as the tag and <strong>{content}</strong> being whatever is between the tags, then the following form would be valid:
+	<blockquote class="bbc_standard_quote">
+		[blegh]{content}[/blegh]
+	</blockquote>';
+$helptxt['Edit_description'] = 'This description is what will be shown to the user when the user hovers the mouse over the button image.  A button image must be included for this description to show up.';
+$helptxt['Edit_type'] = '<div class="cat_bar"><h3 class="catbg">Supported bbcode types:</h3></div>
+	Please note these tag types are defined by the <strong>parse_bbc</strong> function.  I have no control over how they are named and will not change them.<hr />' . 
+	CBBC_Spoiler('Closed - [tag], [tag/], [tag /]', '
+		The closed tag is replaced by the replacement HTML string.
+		<blockquote class="bbc_standard_quote">
+			[tag]
+		</blockquote>') .
+	CBBC_Spoiler('Parsed Content - [tag]parsed content[/tag]', '
+		Only one <strong>{content}</strong> marker is permitted by this type.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag]<strong>{content}</strong>[/tag]
+		</blockquote>
+		The HTML replacement string is internally divided into two parts: <strong>before</strong> and <strong>after</strong>, both of which surround the <strong>{content}</strong> tag.  The contents of <strong>{content}</strong> is further parsed so the use of any bbcodes within the tag is permitted.') .
+	CBBC_Spoiler('Unparsed Content - [tag]unparsed content[/tag]', '
+		Only one <strong>{content}</strong> marker is permitted by this type.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag]<strong>{content}</strong>[/tag]
+		</blockquote>
+		The HTML replacement string is internally divided into two parts: <strong>before</strong> and <strong>after</strong>, both of which surround the <strong>{content}</strong> tag, which is not parsed.') .
+	CBBC_Spoiler('Parsed Equals - [tag=parsed data]parsed content[/tag]', '
+		<strong><u>Supported markers:</u></strong><br />
+		<strong>{content}</strong> - Only one is permitted by this type.<br />
+		<strong>{option1}</strong> or <strong>$1</strong> - Parsed data following the equal sign.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>]<strong>{content}</strong>[/tag]
+		</blockquote>
+		The HTML replacement string is internally divided into two parts: <strong>before</strong> and <strong>after</strong>, both of which surround the <strong>{content}</strong> tag.  The contents of <strong>{content}</strong> is further parsed so the use of any bbcodes within the tag is permitted.') .
+	CBBC_Spoiler('Unparsed Equals - [tag=xyz]parsed content[/tag]', '
+		<strong><u>Supported markers:</u></strong><br />
+		<strong>{content}</strong> - Only one is permitted by this type.<br />
+		<strong>{option1}</strong> or <strong>$1</strong> - Unparsed data following the equal sign.<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>]<strong>{content}</strong>[/tag]
+		</blockquote>
+		The HTML replacement string is internally divided into two parts: <strong>before</strong> and <strong>after</strong>, both of which surround the <strong>{content}</strong> tag, which is not parsed.') .
+	CBBC_Spoiler('Unparsed Commas - [tag=1,2,3]parsed content[/tag]', '
+		<strong><u>Supported markers:</u></strong><br />
+		<strong>{content}</strong> - Can be used as many times as required.<br/>
+		<strong>{option[x]}</strong> or <strong>$[x+1]</strong> - Parameters following the equal sign, where <strong>[x]</strong> is the parameter number from 1 to 8 (aka: <strong>{option8}</strong>).<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>(,<strong>{option2}</strong>(,....))]<strong>{content}</strong>[/tag]
+		</blockquote>
+		The <strong>{content}</strong> marker is replaced with parsed supplied user data within the HTML replacement string.  The <strong>{option[x]}</strong> markers are replaced with unparsed csv data within the HTML replacement string.') .
+	CBBC_Spoiler('Unparsed Commas Content - [tag=1,2,3]unparsed content[/tag]', '
+		<strong><u>Supported markers:</u></strong><br />
+		<strong>{content}</strong> - Can be used as many times as required.<br/>
+		<strong>{option[x]}</strong> or <strong>$[x+1]</strong> - Parameters following the equal sign, where <strong>[x]</strong> is the parameter number from 1 to 8 (aka: <strong>{option8}</strong>).<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>(,<strong>{option2}</strong>(,....))]<strong>{content}</strong>[/tag]
+		</blockquote>
+		<strong>{content}</strong> and all <strong>{option[x]}</strong> tags are replaced with unparsed supplied user data within the HTML replacement string.') .
+	CBBC_Spoiler('Unparsed Equals Content - [tag=...]unparsed content[/tag]', '
+		<strong><u>Supported markers:</u></strong><br />
+		<strong>{content}</strong> - Can be used as many times as required.<br/>
+		<strong>{option[x]}</strong> or <strong>$[x+1]</strong> - Parameters following the equal sign, where <strong>[x]</strong> is the parameter number from 1 to 8 (aka: <strong>{option8}</strong>).<br />
+		<blockquote class="bbc_standard_quote">
+			[tag=<strong>{option1}</strong>(,<strong>{option2}</strong>(,....))]<strong>{content}</strong>[/tag]
+		</blockquote>
+		<strong>{content}</strong> and all <strong>{option[x]}</strong> tags are replaced with unparsed supplied user data within the HTML replacement string.');
+$helptxt['Edit_tag_format'] = 'This field shows you the form that your new bbcode tag will use.';
+$helptxt['Edit_trim'] = 'Available options:<br />
+	<blockquote class="bbc_standard_quote">
+		<strong>inside</strong> - Whitespace after the begin tag will be removed.<br />
+		<strong>outside</strong> - Whitespace after the end tag will be replaced.<br />
+		<strong>both</strong> - Whitespace after the starting and ending tag will be removed.
+	</blockquote>';
+$helptxt['Edit_block_level'] = 'When checked, the tag is a &quot;block level&quot; tag, similar to HTML.<br /><br />
+	Block level tags cannot be nested inside tags that are not block level, and will not be implicitly closed as easily.
+	One break following a block level tag may also be removed.';
+$helptxt['Edit_html'] = 'Edit_html';
+$helptxt['Edit_button_filename'] = 'Edit_button_filename';
+$helptxt['Edit_show_button'] = 'Checking this option makes the button that you uploaded visible on the Post screen.';
+$helptxt['Edit_accept_urls'] = 'Checking this option adds a validation function that ensures that the URL passed as <strong>{content}</strong> starts with either a <strong>http://</strong> or a <strong>https://</strong>.  If neither is present at the start of the content, a <strong>http://</strong> will be added to the URL.';
+// END: Custom BBCode Manager
 
 ]]></add>
 	</operation>

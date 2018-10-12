@@ -1,11 +1,16 @@
 <?php
 /**********************************************************************************
-* CustomBBCode.english.php - Custom BBCode Manager mod english language file
-*********************************************************************************
+* CustomBBCodeAdmin.english.php - Custom BBCode Manager mod english language file
+***********************************************************************************
+* This mod is licensed under the 2-clause BSD License, which can be found here:
+*	http://opensource.org/licenses/BSD-2-Clause
+***********************************************************************************
 * This program is distributed in the hope that it is and will be useful, but
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY
 * or FITNESS FOR A PARTICULAR PURPOSE.
 **********************************************************************************/
+
+$txt['CustomBBCode_List_Title'] = 'Custom BBCodes';
 
 // All strings used in the List Custom BBCodes template:
 $txt['List_Header_Desc'] = 'Here you can manage all of your custom BBCodes.';
@@ -21,12 +26,16 @@ $txt['List_disable'] = 'disable';
 $txt['List_actions'] = 'Actions';
 $txt['List_add'] = 'Create New Tag';
 $txt['List_delete_bbcode'] = 'Are you sure you want to delete this BBCode?';
+$txt['List_simple'] = 'Create Simple Tag';
+$txt['List_Status'] = 'Status';
 
 // All strings used in the Edit Custom BBCode template:
 $txt['Edit_title'] = 'Custom BBCode Settings';
 $txt['Edit_name'] = 'BBCode';
+$txt['Edit_description'] = $txt['List_description'];
 $txt['Edit_type'] = 'Tag type';
 $txt['Edit_tag'] = 'tag';
+$txt['Edit_tag_format'] = 'Format bbcode will use:';
 $txt['Edit_content'] = 'parsed content';
 $txt['Edit_uncontent'] = 'unparsed content';
 $txt['Edit_data'] = 'parsed content';
@@ -36,22 +45,24 @@ $txt['Edit_trim_in'] = 'inside';
 $txt['Edit_trim_out'] = 'outside';
 $txt['Edit_trim_both'] = 'both';
 $txt['Edit_block_level'] = 'Block level';
-$txt['Edit_text'] = 'The HTML used for the tag:';
+$txt['Edit_html'] = 'The HTML used for the tag:';
 $txt['Edit_test_bbcode'] = 'Test';
 $txt['Edit_button'] = 'Button for Tag';
 $txt['Edit_remove'] = 'Remove Button';
 $txt['Edit_remove_confirm'] = 'Are you sure you want to remove the button for this tag?';
 $txt['Edit_show_button'] = 'Show Button for Tag';
 $txt['Edit_Upload_Title'] = 'Upload Tag Button';
-$txt['Edit_20_Upload_description'] = 'You can represent your new custom BBCode with a button on the Editor.  It must be a .GIF file that is 23x22 in size, with a transparent background.  It can be animated.  Maximum size is 10kb.<div class="smalltext">NOTE: Image type and file size are strictly enforced.  Image dimensions are not enforced, but are suggested for best appearance.</div>';
-$txt['Edit_20_Upload_invalid_upload'] = 'Your button must be a .GIF file with a maximum size is 10kb.';
-$txt['Edit_21_Upload_description'] = 'You can represent your new custom BBCode with a button on the Editor.  It must be a .PNG file that is 16x16 in size, with a transparent background.  It can be animated.  Maximum size is 10kb.<div class="smalltext">NOTE: Image type and file size are strictly enforced.  Image dimensions are not enforced, but are suggested for best appearance.</div>';
-$txt['Edit_21_Upload_invalid_upload'] = 'Your button must be a .PNG file with a maximum size is 10kb.';
-$txt['Edit_Upload_error'] = 'An error occurred during the upload.';
+$txt['Edit_20_Upload_description'] = 'You can represent your new custom BBCode with a button on the Editor.  It must be a .GIF file that is 23x22 in size, with a transparent background.  It can be animated.  Maximum size is 10kb.';
+$txt['Edit_21_Upload_description'] = 'You can represent your new custom BBCode with a button on the Editor.  It must be a .PNG file that is 16x16 in size, with a transparent background.  It can be animated.  Maximum size is 10kb.';
 $txt['Edit_Filename'] = 'FileName:';
 $txt['Edit_Upload'] = 'Upload';
 $txt['Edit_test'] = 'Input Mask to test against:';
 $txt['bbcode_exists'] = 'The bbcode you are attempting to insert already exists.';
+$txt['upload_file'] = 'Upload';
+$txt['remove_file'] = 'Remove';
+$txt['clear_file'] = 'Clear';
+$txt['Edit_Preview'] = 'Preview of BBCode button';
+$txt['Edit_accept_urls'] = 'Assume <strong>{content}</strong> is a URLs?';
 
 // DO NOT change the {content} or {option} text, as they are required by the mod!
 $txt['Edit_subtext0'] = '{content} is replaced with the content of the tags.';
@@ -71,5 +82,16 @@ $txt['unparsed_equals_content'] = 'Unparsed Equals Content';
 // Version update information:
 $txt['bbc_new_version'] = 'Custom BBCode Manager mod version %s is available for download!';
 $txt['bbc_no_update'] = 'Your install of Custom BBCode Manager is up to date!';
+
+// Upload error messages:
+$txt['Edit_no_file_error'] = 'No file specified to upload!';
+$txt['Edit_upload_error'] = 'An error occurred during the file upload.';
+$txt['Edit_extension_error'] = 'Your button was rejected because it did not have a %s extension.';
+$txt['Edit_mime_type_error'] = 'Your button was rejected because wrong mime type was detected.';
+$txt['Edit_file_size_error'] = 'Your button was rejected because it was more than 10kb.';
+$txt['Edit_width_error'] = 'Your button was rejected because it is not %d pixels in width.';
+$txt['Edit_height_error'] = 'Your button was rejected because it is not %d pixels in height.';
+$txt['Edit_single_content_error'] = 'You have more than one {content} marker in your replacement HTML.\nThe parser will only replace the {content} marker once, due to how the parser is built.\n\nContinue?';
+$txt['Edit_no_content_error'] = 'You have at least one {content} marker in your replacement HTML.\nThe parser will not replace the {content} marker, due to how the parser is built.\n\nContinue?';
 
 ?>

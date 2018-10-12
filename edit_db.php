@@ -70,13 +70,31 @@ $columns = array(
 $indexes = array(
 	array(
 		'type' => 'primary',
-		'columns' => array('id')
-	),
-	array(
-		'columns' => array('id')
+		'columns' => array('id'),
 	),
 );
 $smcFunc['db_create_table']('{db_prefix}bbcodes', $columns, $indexes, array(), 'update_remove');
+
+// Upgrades don't add the columns we added for v2.0.  Add them in seperate statements:
+$smcFunc['db_add_column']('{db_prefix}bbcodes', array(
+	'name' => 'last_update',
+	'type' => 'int',
+	'size' => 8,
+	'unsigned' => true,
+));
+$smcFunc['db_add_column']('{db_prefix}bbcodes', array(
+	'name' => 'accept_urls',
+	'type' => 'int',
+	'size' => 2,
+	'unsigned' => true,
+));
+
+// Force all tags to be lowercase.  It's important for some reason! :p
+$smcFunc['db_query']('', '
+	UPDATE {db_prefix}bbcodes
+	SET tag = LOWER(tag)',
+	array()
+);
 
 // Echo that we are done if necessary:
 if (SMF == 'SSI')

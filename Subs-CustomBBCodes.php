@@ -1,43 +1,20 @@
 <?php
 /**********************************************************************************
 * Subs-CustomBBCode.php - Subs of the Custom BBCode Manager mod
-*********************************************************************************
-* This program is distributed in the hope that it is and will be useful, but
-* WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY
-* or FITNESS FOR A PARTICULAR PURPOSE,
+***********************************************************************************
+* This mod is licensed under the 2-clause BSD License, which can be found here:
+*	http://opensource.org/licenses/BSD-2-Clause
+***********************************************************************************
+* This program is distributed in the hope that it is and will be useful, but      *
+* WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY    *
+* or FITNESS FOR A PARTICULAR PURPOSE.                                            *
 **********************************************************************************/
-if (!defined('SMF'))
+if (!defined('SMF')) 
 	die('Hacking attempt...');
 
 /**********************************************************************************
-* CustomBBCode hooks
+* CustomBBCode hooks defining the new bbcodes
 **********************************************************************************/
-function CustomBBCodes_Admin(&$admin_areas)
-{
-	global $txt, $sourcedir;
-
-	if (!isset($admin_areas['config']['areas']['featuresettings']['subsections']['bbc']))
-		$admin_areas['layout']['areas']['postsettings']['subsections']['custombbc'] = array($txt['CustomBBCode_List_Title']);
-	else
-	{
-		$rebuild = array();
-		foreach ($admin_areas['config']['areas']['featuresettings']['subsections'] as $id => $area)
-		{
-			$rebuild[$id] = $area;
-			if ($id == 'bbc')
-				$rebuild['custombbc'] = array($txt['CustomBBCode_List_Title']);
-		}
-		$admin_areas['config']['areas']['featuresettings']['subsections'] = $rebuild;
-	}
-	if ((isset($_REQUEST['area']) && ($_REQUEST['area'] == 'featuresettings' || $_REQUEST['area'] == 'postsettings')) && (isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'custombbc'))
-		require_once($sourcedir . '/CustomBBCodes.php');
-}
-
-function Add_CustomBBCCodes(&$subActions)
-{
-	$subActions['custombbc'] = 'CustomBBCodes_Browse';
-}
-
 function CustomBBCodes_BBCodes(&$codes)
 {
 	global $smcFunc;
@@ -58,7 +35,7 @@ function CustomBBCodes_BBCodes(&$codes)
 		{
 			// Strip unnecessary fields from the resulting array:
 			if ($row['ctype'] != 'parsed_content')
-				$row['ctype'] = $row['ctype'];
+				$row['type'] = $row['ctype'];
 			if ($row['trim'] == 'none')
 				unset($row['trim']);
 			$row['block_level'] = ($row['block_level'] ? true : false);
@@ -87,6 +64,10 @@ function CustomBBCodes_BBCodes(&$codes)
 			}
 			unset($row['ctype']);
 
+			// If the "accept_urls" option is checked, add a validation function:
+			if (!empty($row['accept_urls']))
+				$row['validate'] = 'CustomBBCodes_URL_Validate';
+
 			// Add the new BBCode to the array:
 			$bbcodes[] = $row;
 		}
@@ -98,14 +79,24 @@ function CustomBBCodes_BBCodes(&$codes)
 	$codes = array_merge($codes, $bbcodes);
 }
 
+function CustomBBCodes_URL_Validate(&$tag, &$data, &$disabled)
+{
+	$data = strtr($data, array('<br>' => ''));
+	if (strpos($data, 'http://') !== 0 && strpos($data, 'https://') !== 0)
+		$data = 'http://' . $data;
+}
+
+/**********************************************************************************
+* CustomBBCode hooks defining the new bbcodes buttons
+**********************************************************************************/
 function CustomBBCodes_Buttons(&$buttons)
 {
-	global $smcFunc;
+	global $smcFunc, $forum_version, $boarddir;
 
 	if (($cached = cache_get_data('bbcodes_buttons', 86400)) == null)
 	{
 		$request = $smcFunc['db_query']('', '
-			SELECT tag, ctype, description
+			SELECT tag, ctype, description, last_update
 			FROM {db_prefix}bbcodes
 			WHERE enabled = {int:enabled}
 				AND button = {int:button}',
@@ -117,31 +108,41 @@ function CustomBBCodes_Buttons(&$buttons)
 
 		// Build the Custom BBcode array:
 		$cached = array();
+		$ext = (substr($forum_version, 0, 7) == 'SMF 2.1' ? 'png' : 'gif');
 		while ($row = $smcFunc['db_fetch_assoc']($request))
 		{
+			// Skip this custom bbcode if the button isn't present on the system:
+			if (!file_exists($boarddir . '/Themes/default/images/bbc/' . $tag . '.' . $ext))
+				continue;
+	
+			// Process the bbcode button tag:
 			$tag = stripslashes($row['tag']);
 			$tmp = array(
-				'image' => $tag,
+				'image' => $tag . '_' . $row['last_update'],
 				'code' => $tag,
 				'description' => stripslashes(empty($row['description']) ? $tag : $row['description']),
-				'after' => ($row['ctype'] != 'closed' ? '[/' . $tag . ']' : ''),
 			);
-
 			switch($row['ctype'])
 			{
+				case 'parsed_content':
 				case 'unparsed_content':
-				case 'closed':
-				case 'unparsed_commas_content':
-				case 'unparsed_equals_content':
 					$tmp['before'] = '[' . $tag . ']';
+					$tmp['after'] = '[/' . $tag . ']';
 					break;
 
-				case 'parsed_equals':
-				case 'unparsed_equals':
-				case 'parsed_content':
-				case 'unparsed_commas':
-				default:
+				case 'closed':
 					$tmp['before'] = '[' . $tag . ']';
+					$tmp['after'] = '';
+					break;
+					
+				case 'parsed_equals':
+				case 'unparsed_commas':
+				case 'unparsed_commas_content':
+				case 'unparsed_equals':
+				case 'unparsed_equals_content':
+				default:
+					$tmp['before'] = '[' . $tag . '=';
+					$tmp['after'] = '][/' . $tag . ']';
 			}
 
 			$cached[] = $tmp;
@@ -152,6 +153,22 @@ function CustomBBCodes_Buttons(&$buttons)
 		cache_put_data('bbcodes_buttons', $cached, 86400);
 	}
 	$buttons[0] = array_merge($buttons[0], $cached);
+}
+
+/**********************************************************************************
+* CustomBBCode hook defining any needed css for the bbcode buttons:
+**********************************************************************************/
+function CustomBBCodes_LoadTheme()
+{
+}
+
+/**********************************************************************************
+* CustomBBCode support function for Help area:
+**********************************************************************************/
+function CBBC_Spoiler($title, $hidden)
+{
+	global $txt;
+	return '<div style="padding: 3px; font-size: 1em;"><div style="border-bottom: 1px solid #5873B0; margin-bottom: 3px; font-size: 0.8em; font-weight: bold; display: block;"><span onClick="if (this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display != \'\') {  this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'\'; this.innerHTML = \'<b>' . $title . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . strtoupper($txt["debug_hide"]) . '</a>\'; } else { this.parentNode.parentNode.getElementsByTagName(\'div\')[1].getElementsByTagName(\'div\')[0].style.display = \'none\'; this.innerHTML = \'<b>' . $title . ': </b><a href=\\\'#\\\' onClick=\\\'return false;\\\'>' . strtoupper($txt["debug_show"]) . '</a>\'; }" /><b>' . $title . ': </b><a href="#" onClick="return false;">' . strtoupper($txt["debug_show"]) . '</a></span></div><div class="quotecontent"><div style="display: none;">' . $hidden . '</div></div></div>';
 }
 
 ?>

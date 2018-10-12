@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>dougiefresh:CustomBBCodes</id>
 <name>Custom BBCodes Manager</name>
-<version>1.12</version>
+<version>2.0</version>
 
 <!-------------------------------------------------------------------------->
 <!-- Custom BBCode Manager UI (ManageBoards.php)                            -->
@@ -12,8 +12,15 @@
 	<operation>
 		<search position="before"><![CDATA[		'layout' => 'ModifyLayoutSettings',
 ]]></search>
-		<add><![CDATA[		'custombbc' => 'CustomBBCodes_Browse',
+		<add><![CDATA[		'custombbc' => 'CustomBBCodes_Controller',
 ]]></add>
 	</operation>
 </file>
+<file name="$themedir/Admin.template.php">
+	<operation>
+		<search position="before"><![CDATA[<form id="admin_form_wrapper" action="', $context['post_url'], '"]]></search>
+		<add><![CDATA[' . (isset($context['CBBC_multipart']) ? ' enctype="multipart/form-data"' : '') . ']]></add>
+	</operation>
+</file>
+
 </modification>

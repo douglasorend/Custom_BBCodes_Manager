@@ -1,3 +1,20 @@
+v2.0 - November 29th, 2015
+o Added "Create Simple Mode" to create new bbcodes using just tag, description and HTML.
+o Added validation function to force content to start with "http://" or "https://" when option checked.
+o Added membergroup permissions to control who can manage custom BBCodes.
+o Added AJAX code to assist user in identifying pre-existing bbcode tags.
+o Added AJAX code to upload or remove bbcode button images without saving the form.
+o Added Javascript code so that file input box can easily be cleared.
+o Added JavaScript code so that new bbcode tags with existing names cannot be submitted.
+o Fixed "delete", "disable" and "modify" links on Custom BBCode list page.
+o Fixed reversed image type detection based on whether mod is running under 2.0.x or 2.1.
+o Fixed "bbcode_exists" function so that hook isn't removed for everybody during testing.
+o Fixed image type and dimensions checking and made sure they are strictly enforced.
+o Modified admin panel code so that bbcode tags are stored in lowercase letters.
+o Modified button function so that button image not added to list if button image not present.
+o All existing database tags are forced to lowercase.  For unknown reason, it is necessary.
+o Added help language strings to clarify how the bbcode types are used.
+
 v1.12 - June 6th, 2015
 o Fixed some issues with the code that adds and removes bbcode button images.
 
