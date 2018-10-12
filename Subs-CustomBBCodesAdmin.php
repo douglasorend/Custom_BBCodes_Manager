@@ -135,7 +135,7 @@ function remove_bbc_tag($id)
 	// Retrieve the tag name and remove the image button from the server:
 	$tag = get_bbc_row($id);
 	if (isset($tag['tag']))
-		remove_gif_from_themes($tag['tag']);
+		remove_image_from_themes($tag['tag']);
 	
 	// Delete the entry from the database:
 	$smcFunc['db_query']('', '
@@ -249,10 +249,11 @@ function copy_image_to_themes($tag)
 			'known' => $modSettings['knownThemes'],
 		)
 	);
-	$dest = $boarddir . '/Themes/default/images/bbc/' . $tag . '.gif';
+	$ext = (substr($forum_version, 0, 7) == 'SMF 2.0' ? 'gif' : 'png');
+	$dest = $boarddir . '/Themes/default/images/bbc/' . $tag . '.' . $ext;
 	move_uploaded_file($_FILES['file']['tmp_name'], $dest);
 	while ($theme = $smcFunc['db_fetch_assoc']($request))
-		copy($dest, $theme['value'] . '/images/bbc/' . $tag . '.gif');
+		copy($dest, $theme['value'] . '/images/bbc/' . $tag . '.' . $ext);
 	$smcFunc['db_free_result']($request);
 }
 
@@ -272,8 +273,9 @@ function remove_image_from_themes($tag)
 			'known' => $modSettings['knownThemes'],
 		)
 	);
+	$ext = (substr($forum_version, 0, 7) == 'SMF 2.0' ? 'gif' : 'png');
 	while ($theme = $smcFunc['db_fetch_assoc']($request))
-		@unlink($theme['value'] . '/images/bbc/' . $tag . '.gif');
+		@unlink($theme['value'] . '/images/bbc/' . $tag . '.' . $ext);
 	$smcFunc['db_free_result']($request);
 }
 

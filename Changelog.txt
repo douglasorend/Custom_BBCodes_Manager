@@ -1,3 +1,6 @@
+v1.12 - June 6th, 2015
+o Fixed some issues with the code that adds and removes bbcode button images.
+
 v1.11 - May 1st, 2015
 o Modified code to correctly reflect custom bbcode icon requirements for SMF 2.1.
 
@@ -9,7 +12,7 @@ v1.9 - April 24th, 2015
 o Fixed package-info.xml so that it refers to the install_20x.xml file, not install.xml.
 
 v1.8 - April 4th, 2015
-o Updated for SMF 2.1 Beta 1f
+o Updated for SMF 2.1 Beta 1
 
 v1.7 - Febuary 13th, 2015
 o Fixed undefined variable error in Subs-CustomBBCodes.php
