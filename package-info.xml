@@ -4,8 +4,38 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>dougiefresh:CustomBBCodes</id>
 	<name>Custom BBCodes Manager</name>
-	<version>1.8</version>
 	<type>modification</type>
+	<version>1.9</version>
+	
+	<install for="2.0 - 2.0.99">
+		<readme type="file" parsebbc="true">readme.txt</readme>
+		<code>add_remove_hooks.php</code>
+		<database>edit_db.php</database>
+		<modification>install_20x.xml</modification>
+		<modification>language_english.xml</modification>
+		<require-file name="CustomBBCodes.php" destination="$sourcedir" />
+		<require-file name="CustomBBCodes.english.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodes.english-utf8.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodes.dutch.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="CustomBBCodes.dutch-utf8.php" destination="$boarddir/Themes/default/languages" />
+		<require-file name="Subs-CustomBBCodes.php" destination="$sourcedir" />
+		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
+		<require-file name="CustomBBCodes.template.php" destination="$boarddir/Themes/default" />
+		<redirect url="index.php?action=admin;area=postsettings;sa=custombbc;" timeout="5000">redirect.txt</redirect>
+	</install>
+	<uninstall for="2.0 - 2.0.99">
+		<code>add_remove_hooks.php</code>
+		<modification reverse="true">install_20x.xml</modification>
+		<modification reverse="true">language_english.xml</modification>
+		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english.php" />
+		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english-utf8.php" />
+		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.dutch.php" />
+		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.dutch-utf8.php" />
+		<remove-file name="$sourcedir/CustomBBCodes.php" />
+		<remove-file name="$sourcedir/Subs-CustomBBCodes.php" />
+		<remove-file name="$sourcedir/Subs-CustomBBCodesAdmin.php" />
+		<remove-file name="$boarddir/Themes/default/CustomBBCodes.template.php" />
+	</uninstall>
 
 	<install for="2.1 Beta 1">
 		<readme type="file" parsebbc="true">readme.txt</readme>
@@ -24,36 +54,6 @@
 	</install>
 	<uninstall for="2.1 Beta 1">
 		<code>add_remove_hooks.php</code>
-		<modification reverse="true">language_english.xml</modification>
-		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english.php" />
-		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english-utf8.php" />
-		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.dutch.php" />
-		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.dutch-utf8.php" />
-		<remove-file name="$sourcedir/CustomBBCodes.php" />
-		<remove-file name="$sourcedir/Subs-CustomBBCodes.php" />
-		<remove-file name="$sourcedir/Subs-CustomBBCodesAdmin.php" />
-		<remove-file name="$boarddir/Themes/default/CustomBBCodes.template.php" />
-	</uninstall>
-	
-	<install for="2.0 - 2.0.99">
-		<readme type="file" parsebbc="true">readme.txt</readme>
-		<code>add_remove_hooks.php</code>
-		<database>edit_db.php</database>
-		<modification>install.xml</modification>
-		<modification>language_english.xml</modification>
-		<require-file name="CustomBBCodes.php" destination="$sourcedir" />
-		<require-file name="CustomBBCodes.english.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="CustomBBCodes.english-utf8.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="CustomBBCodes.dutch.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="CustomBBCodes.dutch-utf8.php" destination="$boarddir/Themes/default/languages" />
-		<require-file name="Subs-CustomBBCodes.php" destination="$sourcedir" />
-		<require-file name="Subs-CustomBBCodesAdmin.php" destination="$sourcedir" />
-		<require-file name="CustomBBCodes.template.php" destination="$boarddir/Themes/default" />
-		<redirect url="index.php?action=admin;area=postsettings;sa=custombbc;" timeout="5000">redirect.txt</redirect>
-	</install>
-	<uninstall for="2.0 - 2.0.99">
-		<code>add_remove_hooks.php</code>
-		<modification reverse="true">install.xml</modification>
 		<modification reverse="true">language_english.xml</modification>
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english.php" />
 		<remove-file name="$boarddir/Themes/default/languages/CustomBBCodes.english-utf8.php" />

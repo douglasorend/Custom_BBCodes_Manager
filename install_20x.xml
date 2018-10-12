@@ -3,7 +3,7 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>dougiefresh:CustomBBCodes</id>
 <name>Custom BBCodes Manager</name>
-<version>1.8</version>
+<version>1.9</version>
 
 <!-------------------------------------------------------------------------->
 <!-- Custom BBCode Manager UI (ManageBoards.php)                            -->
