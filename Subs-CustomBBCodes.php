@@ -112,11 +112,11 @@ function CustomBBCodes_Buttons(&$buttons)
 		while ($row = $smcFunc['db_fetch_assoc']($request))
 		{
 			// Skip this custom bbcode if the button isn't present on the system:
+			$tag = stripslashes($row['tag']);
 			if (!file_exists($boarddir . '/Themes/default/images/bbc/' . $tag . '.' . $ext))
 				continue;
 	
 			// Process the bbcode button tag:
-			$tag = stripslashes($row['tag']);
 			$tmp = array(
 				'image' => $tag . '_' . $row['last_update'],
 				'code' => $tag,

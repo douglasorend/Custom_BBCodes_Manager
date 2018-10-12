@@ -1,3 +1,6 @@
+v2.1 - December 8th, 2015
+o Fixed issue where bbcode buttons do not show up on the post screen.
+
 v2.0 - November 29th, 2015
 o Added "Create Simple Mode" to create new bbcodes using just tag, description and HTML.
 o Added validation function to force content to start with "http://" or "https://" when option checked.
