@@ -1,3 +1,8 @@
+v1.7 - Febuary 13th, 2015
+o Fixed undefined variable error in Subs-CustomBBCodes.php
+o Fixed some undefined array elements in CustomBBcodes.php
+o Fixed several issues inside the bbcode_exists function in Subs-CustomBBCodesAdmin.php
+
 v1.6 - Febuary 1st, 2015
 o Fixed a nasty bug where existing custom BBcodes weren't allowed to be edited.
 o If SMF 2.1-Style Admin Area is installed, this mod is installed under Configuration => Feature Settings.

@@ -29,7 +29,7 @@ function CustomBBCodes_Admin(&$admin_areas)
 		}
 		$admin_areas['config']['areas']['featuresettings']['subsections'] = $rebuild;
 	}
-	if (($_GET['area'] == 'featuresettings' || $_GET['area'] == 'postsettings') && $_GET['sa'] == 'custombbc')
+	if (($_GET['area'] == 'featuresettings' || $_GET['area'] == 'postsettings') && (isset($_GET['sa']) && $_GET['sa'] == 'custombbc'))
 		require_once($sourcedir . '/CustomBBCodes.php');
 }
 

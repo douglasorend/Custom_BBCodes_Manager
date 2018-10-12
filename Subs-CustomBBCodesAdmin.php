@@ -297,11 +297,10 @@ function bbcode_exists($tag, $id)
 	$temp = parse_bbc(false);
 	add_integration_function('integrate_bbc_codes', 'CustomBBCodes_BBCodes');
 	$bbcTags = array();
-	foreach ($temp as $tag)
-		$bbcTags[] = $tag['tag'];
+	foreach ($temp as $tagname)
+		$bbcTags[] = $tagname['tag'];
 	$bbcTags = array_unique($bbcTags);
-	$totalTags = count($bbcTags);
-	if (in_array($tag['tag'], $bbcTags))
+	if (in_array($tag, $bbcTags))
 		return true;
 
 	// Okay, we got here.  Is this bbcode defined by using this mod?

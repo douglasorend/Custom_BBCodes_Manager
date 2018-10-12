@@ -161,6 +161,9 @@ function CustomBBCodes_Edit($tag)
 			'block_level' => 0,
 			'trim' => 'none',
 			'ctype' => 'parsed_content',
+			'before' => '',
+			'after' => '',
+			'content' => '',
 		);
 
 	// Uploading button?
@@ -192,7 +195,7 @@ function CustomBBCodes_Edit($tag)
 		checkSession();
 
 		// Populate the data fields with information supplied:
-		$data = array(
+		$row = array(
 			'id' => ($tag == -1 ? get_max_bbcode_id() + 1 : $tag),
 			'content' => '',
 			'before' => '',
@@ -207,25 +210,25 @@ function CustomBBCodes_Edit($tag)
 		);
 
 		// Make sure that the bbcode doesn't exist.  If it does, error out....
-		if (bbcode_exists($data['tag'], $data['id']))
+		if (bbcode_exists($row['tag'], $row['id']))
 			fatal_lang_error('bbcode_exists', false);
 
 		// Break the given HTML string into a more understandable form for SMF....
 		$text = isset($_POST['html']) ? $_POST['html'] : '';
-		switch($data['ctype'])
+		switch($row['ctype'])
 		{
 			case 'closed':
 				break;
 
 			case 'unparsed_content':
-				$data['content'] = str_replace('$1', '{content}', $text);
+				$row['content'] = str_replace('$1', '{content}', $text);
 				break;
 
 			case 'unparsed_commas_content':
 			case 'unparsed_equals_content':
 				$search = array('{content}', '{option1}', '{option2}', '{option3}', '{option4}', '{option5}', '{option6}', '{option7}', '{option8}');
 				$replace = array('$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8', '$9');
-				$data['content'] = str_replace($search, $replace, $text);
+				$row['content'] = str_replace($search, $replace, $text);
 				break;
 
 			case 'parsed_equals':
@@ -237,17 +240,17 @@ function CustomBBCodes_Edit($tag)
 				$replace = array('$1', '$2', '$3', '$4', '$5', '$6', '$7', '$8');
 				$pos = strpos($text, '{content}');
 				if ($pos === false)
-					$data['before'] = str_replace($search, $replace, $text);
+					$row['before'] = str_replace($search, $replace, $text);
 				else
 				{
-					$data['before'] = str_replace($search, $replace, substr($text, 0, $pos));
-					$data['after'] = str_replace($search, $replace, substr($text, $pos + 9));
+					$row['before'] = str_replace($search, $replace, substr($text, 0, $pos));
+					$row['after'] = str_replace($search, $replace, substr($text, $pos + 9));
 				}
 				break;
 		}
 
 		// Insert the information, then return to the CustomBBCodes listing page:
-		replace_tag($data);
+		replace_tag($row);
 		redirectexit('action=admin;area=' . $_GET['area'] . ';sa=custombbc');
 	}
 
