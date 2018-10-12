@@ -1,6 +1,6 @@
 <?php
 /**********************************************************************************
-* CustomBBCodeAdmin.english.php - Custom BBCode Manager mod english language file
+* CustomBBCodeAdmin.spanish_latin-utf8.php - Custom BBCode Manager mod english language file
 ***********************************************************************************
 * This mod is licensed under the 2-clause BSD License, which can be found here:
 *	http://opensource.org/licenses/BSD-2-Clause
@@ -8,7 +8,9 @@
 * This program is distributed in the hope that it is and will be useful, but
 * WITHOUT ANY WARRANTIES; without even any implied warranty of MERCHANTABILITY
 * or FITNESS FOR A PARTICULAR PURPOSE.
-**********************************************************************************/
+***********************************************************************************
+* Spanish translation by Rock Lee (https://www.bombercode.org) Copyright 2014-2018*
+***********************************************************************************/
 
 $txt['CustomBBCode_List_Title'] = 'BBCodes personalizados';
 
@@ -95,6 +97,6 @@ $txt['Edit_single_content_error'] = 'Usted tiene más de una {content} marcador 
 $txt['Edit_no_content_error'] = 'Usted tiene por lo menos una {content} marcador en su reemplazo HTML.\nEl analizador no reemplazará a la {content} marcador, debido a la forma en que se construyó el analizador.\n\n¿Continuar?';
 
 // Permission Names:
-//$txt['permissionname_manage_custom_bbcodes'] = 'Can Manage Custom BBCodes';
+$txt['permissionname_manage_custom_bbcodes'] = 'Puede administrar BBCodes personalizados';
 
 ?>
