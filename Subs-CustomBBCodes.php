@@ -65,8 +65,8 @@ function CustomBBCodes_BBCodes(&$codes)
 			unset($row['ctype']);
 
 			// If the "accept_urls" option is checked, add a validation function:
-			if (!empty($row['accept_urls']))
-				$row['vfunc'][] = 'CustomBBCodes_URL';
+// was causing errors	if (!empty($row['accept_urls']))
+// was causing errors		$row['vfunc'][] = 'CustomBBCodes_URL';
 			if (!empty($row['css']))
 				$row['vfunc'][] = 'CustomBBCodes_CSS';
 			$row['validate'] = 'CustomBBCodes_Validate';
