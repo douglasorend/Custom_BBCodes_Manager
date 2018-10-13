@@ -84,7 +84,7 @@ function CustomBBCodes_BBCodes(&$codes)
 
 function CustomBBCodes_Validate(&$tag, &$data, &$disabled)
 {
-	if (!empty($tag['vfunc']))
+	if (empty($tag['vfunc']))
 		return;
 	foreach ($tag['vfunc'] as $func)
 		$func($tag, $data, $disabled);
